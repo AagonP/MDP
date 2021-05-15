@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/components/rounded_button.dart';
+
+import '../../components/rounded_button.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

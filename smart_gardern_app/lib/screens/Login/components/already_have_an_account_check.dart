@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/constant.dart';
-import 'package:smart_gardern_app/screens/Register/register_screen.dart';
+
+import '../../../constant.dart';
+import '../../Register/register_screen.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
-  final Function press;
+  final Function? press;
   const AlreadyHaveAnAccountCheck({
-    Key key,
+    Key? key,
     this.login = true,
     this.press,
   }) : super(key: key);

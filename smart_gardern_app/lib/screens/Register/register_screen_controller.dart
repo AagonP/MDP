@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<bool> registerHandler(final String email, String password) async {
+Future<bool> registerHandler(String? email, String? password) async {
   if (email == null) {
     return false;
   }
@@ -19,4 +19,5 @@ Future<bool> registerHandler(final String email, String password) async {
   } catch (e) {
     print(e);
   }
+  return true;
 }

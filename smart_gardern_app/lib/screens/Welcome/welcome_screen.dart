@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/screens/Welcome/components/body.dart';
+import 'components/body.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override

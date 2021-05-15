@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/components/text_field_container.dart';
+
+import '../../../components/text_field_container.dart';
 
 class RoundedPasswordField extends StatelessWidget {
-  final ValueChanged<String> onChanged;
+  final controller;
 
   const RoundedPasswordField({
-    Key key,
-    this.onChanged,
+    Key? key,
+    this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
+      child: TextFormField(
         obscureText: true,
-        onChanged: onChanged,
+        controller: controller,
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter some text';
+          }
+          return null;
+        },
         decoration: InputDecoration(
           hintText: "Password",
           hintStyle: TextStyle(color: Colors.white),

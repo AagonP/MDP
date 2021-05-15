@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/constant.dart';
-import 'package:smart_gardern_app/components/rounded_button.dart';
-import 'package:smart_gardern_app/screens/Login/login_screen.dart';
-import 'package:smart_gardern_app/screens/Register/register_screen.dart';
+import '../../../constant.dart';
+import '../../../components/rounded_button.dart';
+import '../../Login/login_screen.dart';
+import '../../Register/register_screen.dart';
 import 'background.dart';
 
 class Body extends StatelessWidget {

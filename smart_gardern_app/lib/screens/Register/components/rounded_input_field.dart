@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/components/text_field_container.dart';
+import '../../../components/text_field_container.dart';
 
 class RoundedInputField extends StatelessWidget {
-  final String hintText;
-  final Icon icon;
-  final ValueChanged<String> onChanged;
+  final String? hintText;
+  final Icon? icon;
+
+  final controller;
+  final validator;
   const RoundedInputField({
-    Key key,
+    Key? key,
     this.hintText,
     this.icon,
-    this.onChanged,
+    this.controller,
+    this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-        child: TextField(
-      onChanged: onChanged,
+        child: TextFormField(
+      controller: controller,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter some text';
+        }
+        return null;
+      },
       decoration: InputDecoration(
           icon: icon,
           hintText: hintText,

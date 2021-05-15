@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<bool> loginHandler(final String email, final String password) async {
+Future<bool> loginHandler(String email, String password) async {
   if (email == null) {
     print("User email is null!");
     return false;

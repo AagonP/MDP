@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/constant.dart';
-import 'package:smart_gardern_app/screens/Welcome/welcome_screen.dart';
+import 'constant.dart';
+import 'screens/Welcome/welcome_screen.dart';
 import 'dart:math';
 import 'mqtt.dart';
 import 'dart:async';
@@ -27,7 +27,7 @@ void initTest() async {
 
 void main() {
   // Remove this when done testing
-  initTest();
+  // initTest();
   runApp(App());
 }
 

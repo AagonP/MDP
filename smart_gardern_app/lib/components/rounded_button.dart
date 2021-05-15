@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/constant.dart';
+import '../constant.dart';
 
 class RoundedButton extends StatelessWidget {
-  final String text;
-  final Function press;
+  final String? text;
+  final Function? press;
   final Color color, textColor;
   const RoundedButton({
-    Key key,
+    Key? key,
     this.text,
     this.press,
     this.color = kPrimaryColor,
@@ -20,8 +20,8 @@ class RoundedButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
       width: size.width * 0.7,
       child: TextButton(
-        onPressed: press,
-        child: Text(text),
+        onPressed: press as void Function()?,
+        child: Text(text!),
         style: TextButton.styleFrom(
           primary: textColor,
           backgroundColor: color,

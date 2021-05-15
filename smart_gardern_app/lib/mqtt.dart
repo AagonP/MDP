@@ -10,22 +10,22 @@ const key = 'aio_DBkn67tzocdOLuwtZivt9nIAhcOh';
 const defaultFeedPath = 'pmhieu58/feeds/';
 
 class MqttHelper {
-  static MqttServerClient client;
+  static MqttServerClient? client;
   static Future<void> publish(String topic, String value) async {
     if (client == null) {
       await connect();
     }
     final builder = MqttClientPayloadBuilder();
     builder.addString(value);
-    client.publishMessage(
-        defaultFeedPath + topic, MqttQos.atLeastOnce, builder.payload);
+    client!.publishMessage(
+        defaultFeedPath + topic, MqttQos.atLeastOnce, builder.payload!);
   }
 
   static Future<void> subcribe(String topic) async {
     if (client == null) {
       await connect();
     }
-    client.subscribe(defaultFeedPath + topic, MqttQos.atLeastOnce);
+    client!.subscribe(defaultFeedPath + topic, MqttQos.atLeastOnce);
   }
 
 // connection succeeded
@@ -49,7 +49,7 @@ class MqttHelper {
   }
 
 // unsubscribe succeeded
-  static void onUnsubscribed(String topic) {
+  static void onUnsubscribed(String? topic) {
     print('Unsubscribed topic: $topic');
   }
 
@@ -58,15 +58,15 @@ class MqttHelper {
     print('Ping response client callback invoked');
   }
 
-  static Future<MqttServerClient> connect() async {
+  static Future<MqttServerClient?> connect() async {
     client = MqttServerClient.withPort(host, 'flutter_client', port);
-    client.logging(on: true);
-    client.onConnected = onConnected;
-    client.onDisconnected = onDisconnected;
-    client.onUnsubscribed = onUnsubscribed;
-    client.onSubscribed = onSubscribed;
-    client.onSubscribeFail = onSubscribeFail;
-    client.pongCallback = pong;
+    client!.logging(on: true);
+    client!.onConnected = onConnected;
+    client!.onDisconnected = onDisconnected;
+    client!.onUnsubscribed = onUnsubscribed;
+    client!.onSubscribed = onSubscribed;
+    client!.onSubscribeFail = onSubscribeFail;
+    client!.pongCallback = pong;
 
     final connMessage = MqttConnectMessage()
         .authenticateAs(adafruit_user, key)
@@ -74,21 +74,21 @@ class MqttHelper {
         .withWillTopic('willtopic') // what is this ?
         .withWillMessage('Will message')
         .startClean() // what is this ?
-        .withWillQos(MqttQos.atLeastOnce); // what is this ?
-    client.connectionMessage = connMessage;
+        .withWillQos(MqttQos.atLeastOnce);
+    client!.connectionMessage = connMessage;
 
     try {
-      await client.connect();
+      await client!.connect();
     } catch (e) {
       print('Exception: $e');
-      client.disconnect();
+      client!.disconnect();
     }
 
     // Listen to the broker
-    client.updates.listen((List<MqttReceivedMessage<MqttMessage>> c) {
-      final MqttPublishMessage message = c[0].payload;
+    client!.updates!.listen((List<MqttReceivedMessage<MqttMessage>> c) {
+      final MqttPublishMessage message = c[0].payload as MqttPublishMessage;
       final payload =
-          MqttPublishPayload.bytesToStringAsString(message.payload.message);
+          MqttPublishPayload.bytesToStringAsString(message.payload.message!);
       print("===DATA--RECEIVED=============$payload");
     });
 

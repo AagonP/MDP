@@ -1,5 +1,5 @@
 class Report {}
 
 class Reports {
-  List reports;
+  List? reports;
 }

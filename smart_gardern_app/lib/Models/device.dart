@@ -8,5 +8,5 @@ class Device {
 }
 
 class Devices {
-  List devices;
+  List? devices;
 }
