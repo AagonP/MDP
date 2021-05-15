@@ -19,29 +19,9 @@ void initTest() async {
   // for (int i = 0; i < 10; i++) {
   //   MqttHelper.publish('moisture-sensor', rng.nextInt(100).toString());
   // }
-  // Format of the data to upload
-  Map data = {"id": "1", "name": "LED", "data": "X", "unit": ""};
-  // Publish data to the server
-  MqttHelper.publish('test/json', data.toString());
-}
-
-void main() {
-  // Remove this when done testing
-  initTest();
-  runApp(App());
-}
-
-class App extends StatefulWidget {
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
         // Check for errors
