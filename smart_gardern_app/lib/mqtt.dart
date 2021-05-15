@@ -74,7 +74,7 @@ class MqttHelper {
         .withWillTopic('willtopic') // what is this ?
         .withWillMessage('Will message')
         .startClean() // what is this ?
-        .withWillQos(MqttQos.atLeastOnce); // what is this ?
+        .withWillQos(MqttQos.atLeastOnce);
     client.connectionMessage = connMessage;
 
     try {
