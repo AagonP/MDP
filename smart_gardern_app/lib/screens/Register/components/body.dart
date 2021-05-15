@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/components/rounded_button.dart';
 import 'package:smart_gardern_app/screens/Home/home_screen.dart';
-import 'package:smart_gardern_app/screens/Login/components/already_have_an_account_check.dart';
-import 'package:smart_gardern_app/screens/Login/components/background.dart';
-import 'package:smart_gardern_app/screens/Login/components/rounded_input_field.dart';
-import 'package:smart_gardern_app/screens/Login/components/rounded_password_field.dart';
+import 'package:smart_gardern_app/screens/Register/components/already_have_an_account_check.dart';
+import 'package:smart_gardern_app/screens/Register/components/background.dart';
+import 'package:smart_gardern_app/screens/Register/components/rounded_input_field.dart';
+import 'package:smart_gardern_app/screens/Register/components/rounded_password_field.dart';
 
-import '../login_screen_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smart_gardern_app/screens/Register/register_screen_controller.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -18,6 +19,8 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     String email;
     String password;
+    String address;
+    String phone;
     return SingleChildScrollView(
       child: Background(
           child: Column(
@@ -35,24 +38,37 @@ class Body extends StatelessWidget {
               email = value;
             },
           ),
+          RoundedInputField(
+            hintText: 'Your phone',
+            icon: Icon(Icons.phone, color: Colors.white),
+            onChanged: (value) {
+              phone = value;
+            },
+          ),
+          RoundedInputField(
+            hintText: 'Your address',
+            icon: Icon(Icons.home, color: Colors.white),
+            onChanged: (value) {
+              address = value;
+            },
+          ),
           RoundedPasswordField(
             onChanged: (value) {
               password = value;
             },
           ),
           RoundedButton(
-            text: "Login",
+            text: "Register",
             textColor: Colors.white,
             press: () async {
-              if (await loginHandler(email, password)) {
+              // TODO: Create user with firebase auth then uploading user data (phone,address) to firecloud then extract this method
+              if (await registerHandler(email, password)) {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return HomeScreen();
                 }));
               }
-              ;
             },
           ),
-          SizedBox(height: size.height * 0.03),
           AlreadyHaveAnAccountCheck(),
         ],
       )),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/constant.dart';
 import 'package:smart_gardern_app/components/rounded_button.dart';
 import 'package:smart_gardern_app/screens/Login/login_screen.dart';
+import 'package:smart_gardern_app/screens/Register/register_screen.dart';
 import 'background.dart';
 
 class Body extends StatelessWidget {
@@ -24,17 +25,25 @@ class Body extends StatelessWidget {
           RoundedButton(
             text: "Login",
             press: () {
-              // TODO: maybe refactor thhis into nagivateToLoginScreen()
+              //maybe refactor this into nagivateToLoginScreen()
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return LoginScreen();
               }));
             },
           ),
-          RoundedButton(
-            text: "Create an account",
-            press: () {}, //func to nagivate to Create a new account screen
-            color: Colors.white,
-            textColor: kPrimaryColor,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return RegisterScreen();
+              }));
+            },
+            child: Text(
+              "Create an account",
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       ),
