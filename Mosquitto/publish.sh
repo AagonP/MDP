@@ -2,7 +2,7 @@
 
 # mosquito_sub -h [host_name] -p [port] -u [IO_USERNAME] -P [IO_KEY] -t [topic_name] -m [message]
 
-if [[ "$1" -eq "-h" ]] ; then
+if [[ "$1" == "-h" ]] ; then
     echo
     echo "Use this command:"
     echo "  bash publish.sh [feed] [msg]"
@@ -51,7 +51,7 @@ user_feeds_path="pmhieu58/feeds/"
 topic_name=$user_feeds_path$1
 echo "  Sending to: "$1
 
-message=60
+message=$2
 echo "  Message: "$2
 
 mosquitto_pub -h $host_name -p $port -u $IO_USERNAME -P $IO_KEY -t $topic_name -m $message
