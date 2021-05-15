@@ -74,7 +74,7 @@ class MqttHelper {
         .withWillTopic('willtopic') // what is this ?
         .withWillMessage('Will message')
         .startClean() // what is this ?
-        .withWillQos(MqttQos.atLeastOnce);
+        .withWillQos(MqttQos.atLeastOnce); // what is this ?
     client.connectionMessage = connMessage;
 
     try {
@@ -89,7 +89,7 @@ class MqttHelper {
       final MqttPublishMessage message = c[0].payload;
       final payload =
           MqttPublishPayload.bytesToStringAsString(message.payload.message);
-      print(payload);
+      print("===DATA--RECEIVED=============$payload");
     });
 
     return client;
