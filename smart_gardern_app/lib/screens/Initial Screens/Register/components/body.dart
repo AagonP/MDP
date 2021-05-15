@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../components/rounded_button.dart';
-import '../../Home/home_screen.dart';
+import '../../../../components/rounded_button.dart';
+import '../../../Home/home_screen.dart';
 import 'already_have_an_account_check.dart';
 import 'background.dart';
 import 'rounded_input_field.dart';
@@ -102,17 +102,18 @@ class MyCustomFormState extends State<MyCustomForm> {
             textColor: Colors.white,
             press: () async {
               if (_formKey.currentState!.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Loading')));
+                if (await registerHandler(
+                    emailController.text, passwordController.text, context)) {
+                  // If the form is valid, display a snackbar. In the real world,
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('Loading')));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return HomeScreen();
+                  }));
+                }
               } else {
                 return;
               }
-              if (await registerHandler(
-                  emailController.text, passwordController.text)) {}
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomeScreen();
-              }));
             },
           ),
         ],

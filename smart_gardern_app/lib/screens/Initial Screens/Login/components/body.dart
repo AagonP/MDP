@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../components/rounded_button.dart';
-import '../../Home/home_screen.dart';
+import '../../../../components/rounded_button.dart';
+import '../../../Home/home_screen.dart';
 import 'already_have_an_account_check.dart';
 import 'background.dart';
 import 'rounded_input_field.dart';
@@ -85,16 +85,17 @@ class MyCustomFormState extends State<MyCustomForm> {
             press: () async {
               if (_formKey.currentState!.validate()) {
                 // If the form is valid, display a snackbar. In the real world,
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Logging')));
+                if (await loginHandler(
+                    emailController.text, passwordController.text, context)) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('Logging')));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return HomeScreen();
+                  }));
+                }
               } else {
                 return;
               }
-              if (await loginHandler(
-                  emailController.text, passwordController.text)) {}
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomeScreen();
-              }));
               ;
             },
           ),

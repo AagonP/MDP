@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../constant.dart';
-import '../../Login/login_screen.dart';
+import '../../../../constant.dart';
+import '../../Register/register_screen.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
   final Function? press;
   const AlreadyHaveAnAccountCheck({
     Key? key,
-    this.login = false,
+    this.login = true,
     this.press,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return LoginScreen();
+              return RegisterScreen();
             }));
           },
           child: Text(
@@ -31,7 +31,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return LoginScreen();
+              return RegisterScreen();
             }));
           },
           child: Text(
