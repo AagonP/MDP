@@ -89,7 +89,7 @@ class MqttHelper {
       final MqttPublishMessage message = c[0].payload;
       final payload =
           MqttPublishPayload.bytesToStringAsString(message.payload.message);
-      print(message);
+      print("===DATA--RECEIVED=============$payload");
     });
 
     return client;

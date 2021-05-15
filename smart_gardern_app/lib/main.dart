@@ -11,19 +11,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // Testing MQTT package
 void initTest() async {
+  // Connect to Adafruit server
   await MqttHelper.connect();
+  // Subcribe to a test feed
   await MqttHelper.subcribe('test/json');
   // var rng = new Random();
   // for (int i = 0; i < 10; i++) {
   //   MqttHelper.publish('moisture-sensor', rng.nextInt(100).toString());
   // }
+  // Format of the data to upload
   Map data = {"id": "1", "name": "LED", "data": "X", "unit": ""};
+  // Publish data to the server
   MqttHelper.publish('test/json', data.toString());
 }
 
 void main() {
   // Remove this when done testing
-  // initTest();
+  initTest();
   runApp(App());
 }
 
