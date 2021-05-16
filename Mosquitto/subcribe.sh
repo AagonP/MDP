@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# mosquito_sub -h [host_name] -p [port] -u [IO_USERNAME] -P [IO_KEY] -t [topic_name] -m [message]
+# mosquito_sub -h [host] -p [port] -u [IO_USERNAME] -P [IO_KEY] -t [topic]
+
 
 if [[ "$1" == "-h" ]] ; then
     echo
     echo "Use this command:"
-    echo "  bash publish.sh [feed] [msg]"
+    echo "  bash subcribe.sh [feed]"
     echo
     echo "Feed:"
     echo "  ""infrared-sensor"
@@ -14,7 +15,7 @@ if [[ "$1" == "-h" ]] ; then
     echo "  ""pump"
     echo "  ""temp-sensor"
     echo
-    echo "Eg: bash publish.sh temp-sensor 100"
+    echo "Eg: bash publish.sh temp-sensor"
     exit 1
 fi
 
@@ -23,16 +24,8 @@ if [[ -z "$1" ]] ; then
     exit 1
 fi
 
-if [[ -z "$2" ]] ; then
-    echo "  Error: No message"
-    exit 1
-fi
-
-
-
 #Default args
 # $1 = topic_name
-# $2 = message
 
 # Default 
 host_name="io.adafruit.com"
@@ -49,9 +42,6 @@ user_feeds_path="pmhieu58/feeds/"
 
 #Choose which device to subcribe to
 topic_name=$user_feeds_path$1
-echo "  Sending to: "$1
+echo "  Subcribing to: "$1
 
-message=$2
-echo "  Message: "$2
-
-mosquitto_pub -h $host_name -p $port -u $IO_USERNAME -P $IO_KEY -t $topic_name -m $message
+mosquitto_sub -h $host_name -p $port -u $IO_USERNAME -P $IO_KEY -t $topic_name
