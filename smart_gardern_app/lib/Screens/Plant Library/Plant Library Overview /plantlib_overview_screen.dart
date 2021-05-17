@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'components/body.dart';
 
-class LoginScreen extends StatelessWidget {
+class Overview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(),
       body: Body(),
     );
   }

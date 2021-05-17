@@ -1,5 +1,4 @@
 import 'package:mqtt_client/mqtt_client.dart';
-import 'dart:convert';
 import 'dart:async';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
@@ -71,9 +70,9 @@ class MqttHelper {
     final connMessage = MqttConnectMessage()
         .authenticateAs(adafruit_user, key)
         .keepAliveFor(60)
-        .withWillTopic('willtopic') // what is this ?
+        .withWillTopic('willtopic') // More ref
         .withWillMessage('Will message')
-        .startClean() // what is this ?
+        .startClean() // More ref
         .withWillQos(MqttQos.atLeastOnce);
     client!.connectionMessage = connMessage;
 
@@ -84,14 +83,15 @@ class MqttHelper {
       client!.disconnect();
     }
 
-    // Listen to the broker
-    client!.updates!.listen((List<MqttReceivedMessage<MqttMessage>> c) {
-      final MqttPublishMessage message = c[0].payload as MqttPublishMessage;
-      final payload =
-          MqttPublishPayload.bytesToStringAsString(message.payload.message!);
-      print("===DATA--RECEIVED=============$payload");
-    });
-
+    // // Listen to the broker
+    // client!.updates!.listen((List<MqttReceivedMessage<MqttMessage>> c) {
+    //   final MqttPublishMessage message = c[0].payload as MqttPublishMessage;
+    //   final payload =
+    //       MqttPublishPayload.bytesToStringAsString(message.payload.message!);
+    //   // Remove this when done testing
+    //   print("===DATA--RECEIVED=============$payload");
+    //   var data = mqttDecode(payload);
+    // });
     return client;
   }
 }

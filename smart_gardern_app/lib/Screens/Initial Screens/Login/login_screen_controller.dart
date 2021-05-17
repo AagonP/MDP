@@ -3,14 +3,6 @@ import 'package:flutter/material.dart';
 
 Future<bool> loginHandler(
     String email, String password, BuildContext context) async {
-  if (email == null) {
-    print("User email is null!");
-    return false;
-  }
-  if (password == null) {
-    print("User password is null!");
-    return false;
-  }
   try {
     UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);

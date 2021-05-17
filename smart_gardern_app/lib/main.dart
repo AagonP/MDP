@@ -1,34 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Models/device.dart';
 import 'constant.dart';
-import 'screens/Initial Screens/Welcome/welcome_screen.dart';
-import 'dart:math';
-import 'mqtt.dart';
+import 'Screens/Initial Screens/Welcome/welcome_screen.dart';
 import 'dart:async';
+import 'package:provider/provider.dart';
 
 //firebase libs
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-// Testing MQTT package
-void initTest() async {
-  // Connect to Adafruit server
-  await MqttHelper.connect();
-  // Subcribe to a test feed
-  await MqttHelper.subcribe('test/json');
-  // var rng = new Random();
-  // for (int i = 0; i < 10; i++) {
-  //   MqttHelper.publish('moisture-sensor', rng.nextInt(100).toString());
-  // }
-  // Format of the data to upload
-  Map data = {"id": "1", "name": "LED", "data": "X", "unit": ""};
-  // Publish data to the server
-  MqttHelper.publish('test/json', data.toString());
-}
 
 void main() {
-  // Remove this when done testing
-  // initTest();
-  runApp(App());
+  runApp(
+    // Providers
+    ChangeNotifierProvider(
+      child: App(),
+      create: (context) => Device(),
+    ),
+  );
 }
 
 class App extends StatefulWidget {
