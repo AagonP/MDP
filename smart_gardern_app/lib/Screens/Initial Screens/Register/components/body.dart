@@ -6,7 +6,7 @@ import 'already_have_an_account_check.dart';
 import 'background.dart';
 import 'rounded_input_field.dart';
 import 'rounded_password_field.dart';
-import '../login_screen_controller.dart';
+import '../register_screen_controller.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -27,7 +27,6 @@ class Body extends StatelessWidget {
             height: size.height * 0.2,
           ),
           MyCustomForm(),
-          SizedBox(height: size.height * 0.03),
           AlreadyHaveAnAccountCheck(),
         ],
       )),
@@ -53,6 +52,8 @@ class MyCustomFormState extends State<MyCustomForm> {
   // not a GlobalKey<MyCustomFormState>.
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -60,6 +61,8 @@ class MyCustomFormState extends State<MyCustomForm> {
     // Clean up the controller when the widget is disposed.
     emailController.dispose();
     passwordController.dispose();
+    phoneController.dispose();
+    addressController.dispose();
     super.dispose();
   }
 
@@ -76,19 +79,29 @@ class MyCustomFormState extends State<MyCustomForm> {
             hintText: 'Your Email',
             icon: Icon(Icons.person, color: Colors.white),
           ),
+          RoundedInputField(
+            controller: phoneController,
+            hintText: 'Your phone',
+            icon: Icon(Icons.phone, color: Colors.white),
+          ),
+          RoundedInputField(
+            controller: addressController,
+            hintText: 'Your address',
+            icon: Icon(Icons.home, color: Colors.white),
+          ),
           RoundedPasswordField(
             controller: passwordController,
           ),
           RoundedButton(
-            text: "Login",
+            text: "Register",
             textColor: Colors.white,
             press: () async {
               if (_formKey.currentState!.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                if (await loginHandler(
+                if (await registerHandler(
                     emailController.text, passwordController.text, context)) {
+                  // If the form is valid, display a snackbar. In the real world,
                   ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('Logging')));
+                      .showSnackBar(SnackBar(content: Text('Loading')));
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return HomeScreen();
                   }));
@@ -96,7 +109,6 @@ class MyCustomFormState extends State<MyCustomForm> {
               } else {
                 return;
               }
-              ;
             },
           ),
         ],
