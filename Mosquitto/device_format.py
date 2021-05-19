@@ -10,7 +10,7 @@
 # LIGHT SENSOR
 {
     "id":"13",
-    "name": "Light",
+    "name":"Light",
     # type X int from 0 to 1023
     # X < 100 : dark 
     # # X > 100: bright
@@ -21,7 +21,7 @@
 #SOIL MOSTURE SENSOR
 {
     "id":"9",
-    "name": "SOIL",
+    "name":"SOIL",
     # type X int from 0 to 1023
     # X < 100 : dry 
     # # X > 100: wet
@@ -35,7 +35,7 @@
 "id":"11",
 "name":"RELAY",
 "data":"X",
-"unit": ""
+"unit":""
 }
 #TEMPERATURE SENSOR
 {

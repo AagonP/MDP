@@ -96,7 +96,6 @@ class MyCustomFormState extends State<MyCustomForm> {
               } else {
                 return;
               }
-              ;
             },
           ),
         ],

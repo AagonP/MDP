@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+//Remove this when done testing
+import '../../Models/report.dart';
+import '../Demo/demo_screen.dart';
 
 import '../../components/rounded_button.dart';
+import '../Plant Library/Plant Library Overview_/plantlib_overview_screen.dart';
+import '../Report/report_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -11,7 +16,16 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                child: RoundedButton(press: () {}, text: "Report management"),
+                child: RoundedButton(
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return ReportScreen();
+                        }),
+                      );
+                    },
+                    text: "Report management"),
               ),
               Container(
                 child: RoundedButton(press: () {}, text: "Statistics"),
@@ -20,10 +34,32 @@ class HomeScreen extends StatelessWidget {
                 child: RoundedButton(press: () {}, text: "Control devices"),
               ),
               Container(
-                child: RoundedButton(press: () {}, text: "Plant Library"),
+                child: RoundedButton(
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return Overview();
+                        }),
+                      );
+                    },
+                    text: "Plant Library"),
               ),
               Container(
                 child: RoundedButton(press: () {}, text: "Chatbox"),
+              ),
+              //Remove this when done testing
+              Container(
+                child: RoundedButton(
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return Demo();
+                        }),
+                      );
+                    },
+                    text: "Demo"),
               ),
             ],
           ),

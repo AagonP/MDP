@@ -17,7 +17,7 @@ Future<bool> registerHandler(
     if (e.code == 'weak-password') {
       print('The password provided is too weak.');
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Provided password is too weak')));
+          SnackBar(content: Text('Provided password is too weak!')));
       return false;
     } else if (e.code == 'email-already-in-use') {
       print('The account already exists for that email.');

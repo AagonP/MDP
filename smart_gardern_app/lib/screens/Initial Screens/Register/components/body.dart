@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../components/rounded_button.dart';
 import '../../../Home/home_screen.dart';
@@ -17,10 +16,6 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String? email;
-    String? password;
-    String address;
-    String phone;
     return SingleChildScrollView(
       child: Background(
           child: Column(
