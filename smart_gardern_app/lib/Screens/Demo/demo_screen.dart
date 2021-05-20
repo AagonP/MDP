@@ -18,69 +18,72 @@ class Demo extends StatelessWidget {
     final valueController = TextEditingController();
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: kDefaultPadding, vertical: kDefaultPadding),
-              child: Row(
-                children: <Widget>[
-                  // DisplayBox(),
-                ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding, vertical: kDefaultPadding),
+                child: Row(
+                  children: <Widget>[
+                    // DisplayBox(),
+                  ],
+                ),
               ),
-            ),
-            RoundedButton(
-              press: () async {
-                // Something really fishy here between the flow of MQTT listener and Provider listener
-                // Need to rebuild this function
-                // Subcribe to a test feed
-                client = await MqttHelper.connect();
-                //Listen to changes
-                client!.updates!.listen(
-                  (List<MqttReceivedMessage<MqttMessage>> c) {
-                    final MqttPublishMessage message =
-                        c[0].payload as MqttPublishMessage;
-                    final payload = MqttPublishPayload.bytesToStringAsString(
-                        message.payload.message!);
-                    // When receiving data, decode it and update by Provider package
-                    print("===DATA--RECEIVED=============$payload");
-                    var data = mqttDecode(payload);
-                    Provider.of<Device>(context, listen: false).update(
-                        data['id'], data['name'], data['data'], data['unit']);
-                  },
-                );
-              },
-              text: "Establish connection",
-            ),
-            RoundedButton(
-              press: () async {
-                // Subcribe to a test feed
-                await MqttHelper.subcribe('test');
-              },
-              text: "Subcribe to Test feed",
-            ),
-            ValueInput(
-              controller: valueController,
-            ),
-            RoundedButton(
-              press: () {
-                Map testData = {
-                  "id": "1",
-                  "name": "LED",
-                  "data": valueController.text,
-                  "unit": ""
-                };
-                //Publish data to the server
-                MqttHelper.publish('test', mqttEncode(testData));
-              },
-              text: "Publish to Test feed",
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
-            ),
-            DisplayBox(),
-          ],
+              RoundedButton(
+                press: () async {
+                  // Something really fishy here between the flow of MQTT listener and Provider listener
+                  // Need to rebuild this function
+                  // Subcribe to a test feed
+                  client = await MqttHelper.connect();
+                  //Listen to changes
+                  client!.updates!.listen(
+                    (List<MqttReceivedMessage<MqttMessage>> c) {
+                      final MqttPublishMessage message =
+                          c[0].payload as MqttPublishMessage;
+                      final payload = MqttPublishPayload.bytesToStringAsString(
+                          message.payload.message!);
+                      // When receiving data, decode it and update by Provider package
+                      print("===DATA--RECEIVED=============$payload");
+                      var data = mqttDecode(payload);
+                      Provider.of<Device>(context, listen: false).update(
+                          data['id'], data['name'], data['data'], data['unit']);
+                      print(payload);
+                    },
+                  );
+                },
+                text: "Establish connection",
+              ),
+              RoundedButton(
+                press: () async {
+                  // Subcribe to a test feed
+                  await MqttHelper.subcribe('pump');
+                },
+                text: "Subcribe to Test feed",
+              ),
+              ValueInput(
+                controller: valueController,
+              ),
+              RoundedButton(
+                press: () {
+                  Map testData = {
+                    "id": "1",
+                    "name": "LED",
+                    "data": valueController.text,
+                    "unit": ""
+                  };
+                  //Publish data to the server
+                  MqttHelper.publish('pump', mqttEncode(testData));
+                },
+                text: "Publish to Test feed",
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
+              ),
+              DisplayBox(),
+            ],
+          ),
         ),
       ),
     );
