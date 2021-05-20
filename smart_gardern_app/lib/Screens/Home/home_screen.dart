@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../Demo/demo_screen.dart';
 
 import '../../components/rounded_button.dart';
-import '../Plant Library/Plant Library Overview /plantlib_overview_screen.dart';
+import '../Plant Library/Overview/plantlib_overview_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

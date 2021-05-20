@@ -23,15 +23,36 @@ class _PlantCategoryBarState extends State<PlantCategoryBar> {
           scrollDirection: Axis.horizontal,
           children: <Widget>[
             Container(
-              width: 160.0,
-              color: Colors.red,
+              width: (size.width - 20 * 2) / 3,
+              padding: EdgeInsets.symmetric(
+                  horizontal: kDefaultPadding / 2,
+                  vertical: kDefaultPadding / 2),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    topRight: Radius.circular(29),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black,
+                      spreadRadius: 5,
+                      blurRadius: 5,
+                    )
+                  ],
+                ),
+                child: Image(
+                  image: AssetImage('assets/demo_images/aparicot.jpg'),
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
             Container(
-              width: 160.0,
+              width: (size.width - 20 * 2) / 3,
               color: Colors.blue,
             ),
             Container(
-              width: 160.0,
+              width: (size.width - 20 * 2) / 3,
               color: Colors.green,
             ),
             Container(

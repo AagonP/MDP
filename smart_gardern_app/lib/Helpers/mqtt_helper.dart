@@ -13,8 +13,8 @@ Map mqttDecode(String jsonString) {
 
 String mqttEncode(Map data) {
   String id = "\"id\":\"${data['id']}\"";
-  String name = "\"id\":\"${data['name']}\"";
-  String value = "\"id\":\"${data['data']}\"";
-  String unit = "\"id\":\"${data['unit']}\"";
+  String name = "\"name\":\"${data['name']}\"";
+  String value = "\"value\":\"${data['data']}\"";
+  String unit = "\"unit\":\"${data['unit']}\"";
   return "$id,$name,$value,$unit";
 }
