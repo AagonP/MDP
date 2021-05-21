@@ -38,6 +38,7 @@ dev_dependencies:
     sdk: flutter
   firebase_core: ^1.1.1 
   firebase_auth: ^1.1.4 
+  cloud_firestore: "^2.2.0"
   provider:
 
 # For information on the generic Dart part of this file, see the
