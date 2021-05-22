@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/screens/Report/components/report_detail_screen.dart';
+import 'package:smart_gardern_app/Screens/Report/components/reportdetail.dart';
+import 'package:smart_gardern_app/screens/Report/components/reportdetail_screen.dart';
 
 class Report extends StatefulWidget {
   final String name;
@@ -67,7 +68,7 @@ class _ReportState extends State<Report> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return ReportDetailScreen(widget.detail);
+                          return Reportdetail_Screen(detail: widget.detail);
                         }),
                       );
                     },

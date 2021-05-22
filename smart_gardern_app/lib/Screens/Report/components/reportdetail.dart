@@ -13,6 +13,6 @@ class ReportDetail extends StatefulWidget {
 class _ReportDetail extends State<ReportDetail> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text(widget.detail.toString()));
+    return Scaffold();
   }
 }
