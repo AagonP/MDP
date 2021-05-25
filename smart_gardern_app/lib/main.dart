@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/Models/device.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
+
+import 'Models/plant.dart';
 import 'constant.dart';
 import 'Screens/Initial Screens/Welcome/welcome_screen.dart';
-import 'dart:async';
-import 'package:provider/provider.dart';
-
-//firebase libs
-import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(
     // Providers
-    ChangeNotifierProvider(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PlantModel()),
+        ChangeNotifierProvider(create: (context) => SavedPlantModel()),
+      ],
       child: App(),
-      create: (context) => Device(),
     ),
   );
 }
