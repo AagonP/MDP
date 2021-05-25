@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//Remove this when done testing
-import '../Demo/demo_screen.dart';
 
 import '../../components/rounded_button.dart';
 import '../Plant Library/Overview/plantlib_overview_screen.dart';
@@ -36,19 +34,6 @@ class HomeScreen extends StatelessWidget {
               ),
               Container(
                 child: RoundedButton(press: () {}, text: "Chatbox"),
-              ),
-              //Remove this when done testing
-              Container(
-                child: RoundedButton(
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return Demo();
-                        }),
-                      );
-                    },
-                    text: "Demo"),
               ),
             ],
           ),
