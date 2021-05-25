@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../../../../constant.dart';
 
 class TopBar extends StatelessWidget {
-  final childrens;
+  final children;
   const TopBar({
     Key? key,
-    this.childrens,
+    this.children,
   }) : super(key: key);
 
   @override
@@ -14,7 +14,7 @@ class TopBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: kDefaultPadding, vertical: kDefaultPadding),
       child: Row(
-        children: childrens,
+        children: children,
       ),
     );
   }

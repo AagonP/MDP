@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../SavedPlants/saved_plants.dart';
 import '../../../../components/custtom_icon_button.dart';
 import '../../../../constant.dart';
 import 'explore_bar.dart';
@@ -16,7 +17,7 @@ class Body extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TopBar(
-              childrens: <Widget>[
+              children: <Widget>[
                 SearchBar(),
               ],
             ),
@@ -52,7 +53,16 @@ class ToolBar extends StatelessWidget {
           children: [
             CustomIconButton(
               icon: Icons.folder,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SavedPlantScreen();
+                    },
+                  ),
+                );
+              },
             )
           ],
         ));

@@ -37,11 +37,13 @@ class _ExploreBarState extends State<ExploreBar> {
                 onTapHandler: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) {
-                      return PlantDetailScreen(
-                        selectedPlant: items[index],
-                      );
-                    }),
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PlantDetailScreen(
+                          selectedPlant: items[index],
+                        );
+                      },
+                    ),
                   );
                 },
               );

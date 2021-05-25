@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_gardern_app/Screens/Plant%20Library/SavedPlants/saved_plants.dart';
 
 import '../../../../components/custtom_icon_button.dart';
 import '../../../../constant.dart';
 import '../../../../Models/plant.dart';
 import 'background.dart';
 import 'information_bar.dart';
-import 'package:provider/provider.dart';
 
-class Body extends StatelessWidget {
+class SavedBody extends StatelessWidget {
   final Plant selectedPlant;
+  final index;
 
-  const Body({Key? key, required this.selectedPlant}) : super(key: key);
+  const SavedBody({Key? key, required this.selectedPlant, this.index})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final addSnackBar = SnackBar(
-      content: Text('Plant saved!'),
+    final removeSnackBar = SnackBar(
+      content: Text('Saved plant removed!'),
       duration: Duration(seconds: 1),
     );
     return BackGround(
@@ -32,17 +35,20 @@ class Body extends StatelessWidget {
                 ),
                 CustomIconButton(
                   onPressed: () {
+                    // TODO: Refactor this function
                     Provider.of<SavedPlantModel>(context, listen: false)
-                        .add(selectedPlant);
-                    ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
+                        .remove(index);
+                    ScaffoldMessenger.of(context).showSnackBar(removeSnackBar);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SavedPlantScreen();
+                        },
+                      ),
+                    );
                   },
-                  icon: Icons.bookmark,
-                ),
-                CustomIconButton(
-                  onPressed: () {
-                    print("Export pressed!");
-                  },
-                  icon: Icons.file_download,
+                  icon: Icons.delete,
                 ),
               ],
             ),

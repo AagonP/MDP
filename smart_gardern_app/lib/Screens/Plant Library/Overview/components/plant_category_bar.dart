@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../PlantCategoryView/plant_category_screen.dart';
 import '../../../../Models/plant.dart';
 import '../../../../constant.dart';
 import '../../../../components/CustomListTile.dart';
@@ -33,6 +34,18 @@ class _PlantCategoryBarState extends State<PlantCategoryBar> {
               return CustomListTile(
                 text: items[index].familyName,
                 imageURL: items[index].imageURL,
+                onTapHandler: () {
+                  //Refactor this
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return PlantCategoryScreen(
+                            familyName: items[index].familyName);
+                      },
+                    ),
+                  );
+                },
               );
             },
           ),
