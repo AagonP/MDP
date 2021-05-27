@@ -5,7 +5,7 @@ import 'dart:async';
 
 import 'Models/plant.dart';
 import 'constant.dart';
-import 'Screens/Initial Screens/Welcome/welcome_screen.dart';
+import 'Screens/Home/home_screen.dart';
 
 void main() {
   runApp(
@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: WelcomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
