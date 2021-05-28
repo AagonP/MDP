@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/rounded_button.dart';
 import '../Plant Library/Overview/plantlib_overview_screen.dart';
+import 'package:smart_gardern_app/Screens/Device Control/device_control_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -18,7 +19,16 @@ class HomeScreen extends StatelessWidget {
                 child: RoundedButton(press: () {}, text: "Statistics"),
               ),
               Container(
-                child: RoundedButton(press: () {}, text: "Control devices"),
+                child: RoundedButton(
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return DeviceControl();
+                        }),
+                      );
+                    },
+                    text: "Control devices"),
               ),
               Container(
                 child: RoundedButton(

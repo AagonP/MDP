@@ -3,7 +3,7 @@ import 'package:smart_gardern_app/constant.dart';
 import 'package:smart_gardern_app/Screens/Device Control/Control/control_tab.dart';
 import 'package:smart_gardern_app/Screens/Device Control/Schedule/schedule_tab.dart';
 
-class DeviceControlScreen extends StatelessWidget {
+class DeviceControl extends StatelessWidget {
   goBack(BuildContext context) {
     Navigator.pop(context);
   }
