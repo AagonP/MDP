@@ -1,27 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Models/report.dart';
 import 'package:smart_gardern_app/Screens/Report/components/reportdetail.dart';
-import 'package:smart_gardern_app/screens/Report/components/reportdetail_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_gardern_app/Screens/Report/components/api.dart';
+import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
 
-class Report extends StatefulWidget {
-  final String name;
-  final String device;
-  final String date;
-  final detail;
-  const Report(
+class Reports extends StatefulWidget {
+  String name;
+  String device;
+  String date;
+  var detail;
+  String rid;
+  Reports(
       {Key? key,
       required this.name,
       required this.device,
       required this.date,
-      required this.detail})
+      required this.detail,
+      required this.rid})
       : super(key: key);
   @override
   _ReportState createState() => _ReportState();
 }
 
-class _ReportState extends State<Report> {
+class _ReportState extends State<Reports> {
   @override
   Widget build(BuildContext context) {
+    ReportNotifier reportNotifier = Provider.of<ReportNotifier>(context);
+
+    _onReportDeleted(Report report) {
+      Navigator.pop(context);
+      reportNotifier.deleteReport(report);
+    }
+
     Size size = MediaQuery.of(context).size;
+    final String Rname = widget.name;
     return Row(
       children: <Widget>[
         Card(
@@ -62,13 +75,13 @@ class _ReportState extends State<Report> {
                     ]),
               ),
               Padding(
-                  padding: const EdgeInsets.fromLTRB(80.0, 8.0, 10.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(60.0, 8.0, 0.0, 8.0),
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return Reportdetail_Screen(detail: widget.detail);
+                          return ReportDetail(detail: widget.detail, na: Rname);
                         }),
                       );
                     },
@@ -82,7 +95,20 @@ class _ReportState extends State<Report> {
                             child: Text("More"),
                           )),
                     ),
-                  ))
+                  )),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                child: Container(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: Icon(Icons.delete),
+                    iconSize: 20,
+                    color: Colors.red,
+                    onPressed: () => deleteReport(reportNotifier.currentReport,
+                        _onReportDeleted, widget.rid),
+                  ),
+                ),
+              ),
             ],
           ),
         )

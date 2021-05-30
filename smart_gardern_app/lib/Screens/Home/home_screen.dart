@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Screens/Report/report_screen.dart';
 //Remove this when done testing
 import '../Demo/demo_screen.dart';
 
@@ -14,7 +15,16 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                child: RoundedButton(press: () {}, text: "Report management"),
+                child: RoundedButton(
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return ReportScreen();
+                        }),
+                      );
+                    },
+                    text: "Report management"),
               ),
               Container(
                 child: RoundedButton(press: () {}, text: "Statistics"),

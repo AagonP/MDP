@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/Models/device.dart';
+import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
 import 'constant.dart';
 import 'Screens/Initial Screens/Welcome/welcome_screen.dart';
 import 'dart:async';
@@ -10,12 +11,18 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(
-    // Providers
-    ChangeNotifierProvider(
-      child: App(),
-      create: (context) => Device(),
-    ),
-  );
+      // Providers
+      MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => Device(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ReportNotifier(),
+      ),
+    ],
+    child: App(),
+  ));
 }
 
 class App extends StatefulWidget {

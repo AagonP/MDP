@@ -1,23 +1,34 @@
-// class Report {}
+import 'dart:convert';
 
-// class Reports {
-//   List? reports;
-// }
-class Reporti {
-  final String name;
-  final String device;
-  final String date;
+class Report {
+  String name = "";
+  String device = "";
+  String date = "";
+  Map detail = {
+    'wt': 0,
+    'moisture': 0,
+    'light': "",
+    'temp': 0,
+    'infor': "",
+  };
+  String rid = "";
 
-  Reporti(this.name, this.device, this.date);
-}
+  Report();
 
-class Reportd {
-  final String name;
-  final int wt;
-  final int moisture;
-  final String light;
-  final int temp;
-  final String infor;
-
-  Reportd(this.name, this.wt, this.moisture, this.light, this.temp, this.infor);
+  Report.fromMap(data, id) {
+    name = data["name"];
+    device = data["device"];
+    date = data["date"];
+    detail = data["detail"];
+    rid = id;
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'device': device,
+      'date': date,
+      'detail': detail,
+      'rid': rid
+    };
+  }
 }

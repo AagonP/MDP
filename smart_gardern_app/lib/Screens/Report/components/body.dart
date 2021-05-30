@@ -4,10 +4,6 @@ import 'package:smart_gardern_app/Screens/Report/components/data.dart';
 import '../components/top_bar.dart';
 
 class Body extends StatelessWidget {
-  // List userProfilesList = [];
-
-  // String userID = "";
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
