@@ -26,7 +26,7 @@ class _SearchBarState extends State<SearchBar> {
     Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: 5),
-      width: size.width * 0.7,
+      width: size.width * 0.9,
       height: 40,
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),

@@ -75,7 +75,7 @@ class _ReportDetail extends State<ReportDetail> {
                   ),
                 ),
                 Positioned(
-                  top: size.height * 0.12,
+                  top: size.height * 0.1,
                   left: 0,
                   right: 0,
                   child: Container(
@@ -192,18 +192,6 @@ class _ReportDetail extends State<ReportDetail> {
                             ),
                           ),
                         ),
-                        // Column(
-                        //   children: [
-                        //     Text(
-                        //       "More Information:",
-                        //       style: const TextStyle(
-                        //         fontWeight: FontWeight.bold,
-                        //         fontSize: 18.0,
-                        //       ),
-                        //     ),
-                        //     Text(widget.detail["infor"].toString()),
-                        //   ],
-                        // ),
                       ),
                     ],
                   ),

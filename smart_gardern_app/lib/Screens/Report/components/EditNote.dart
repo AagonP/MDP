@@ -64,7 +64,7 @@ class _EditNotesViewState extends State<EditNotesView> {
           children: <Widget>[
             Expanded(
               child: Text(
-                "Trip Notes",
+                "More Information",
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
             ),
@@ -129,12 +129,6 @@ class _EditNotesViewState extends State<EditNotesView> {
           updated(_notesController.text);
 
           Navigator.of(context).pop();
-          //  Navigator.push(
-          //         context,
-          //         MaterialPageRoute(builder: (context) {
-          //           return ReportScreen();
-          //         }),
-          //       );
         },
       ),
     );

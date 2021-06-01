@@ -44,73 +44,93 @@ class _ReportState extends State<Reports> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
-                child: Image.asset(
-                  'assets/images/plant.png',
-                  width: size.width * 0.1,
-                  height: size.height * 0.08,
+          child: InkWell(
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
+                  child: Image.asset(
+                    'assets/images/plant.png',
+                    width: size.width * 0.15,
+                    height: size.height * 0.1,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
                               "Report: " +
                                   widget.name.toString() +
                                   "\nDevide: " +
                                   widget.device.toString() +
                                   "\nDate: " +
                                   widget.date.toString(),
-                              textAlign: TextAlign.left),
-                        ],
-                      ),
-                    ]),
-              ),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(60.0, 8.0, 0.0, 8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return ReportDetail(
-                              detail: widget.detail, na: Rname, id: widget.rid);
-                        }),
-                      );
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: SizedBox(
-                          height: size.height * 0.06,
-                          width: size.width * 0.1,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text("More"),
-                          )),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontFamily: 'Roboto'),
+                            ),
+                          ],
+                        ),
+                      ]),
+                ),
+                // Padding(
+                //     padding: const EdgeInsets.fromLTRB(60.0, 8.0, 0.0, 8.0),
+                //     child: ElevatedButton(
+                //       onPressed: () {
+                //         Navigator.push(
+                //           context,
+                //           MaterialPageRoute(builder: (context) {
+                //             return ReportDetail(
+                //                 detail: widget.detail,
+                //                 na: Rname,
+                //                 id: widget.rid);
+                //           }),
+                //         );
+                //       },
+                //       child: Container(
+                //         alignment: Alignment.center,
+                //         child: SizedBox(
+                //             height: size.height * 0.06,
+                //             width: size.width * 0.1,
+                //             child: Container(
+                //               alignment: Alignment.center,
+                //               child: Text("More"),
+                //             )),
+                //       ),
+                //     )),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(89.0, 8.0, 0.0, 8.0),
+                  child: Container(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                      icon: Icon(Icons.delete),
+                      iconSize: 30,
+                      color: Colors.red,
+                      onPressed: () => deleteReport(
+                          reportNotifier.currentReport,
+                          _onReportDeleted,
+                          widget.rid),
                     ),
-                  )),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                child: Container(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: Icon(Icons.delete),
-                    iconSize: 20,
-                    color: Colors.red,
-                    onPressed: () => deleteReport(reportNotifier.currentReport,
-                        _onReportDeleted, widget.rid),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return ReportDetail(
+                      detail: widget.detail, na: Rname, id: widget.rid);
+                }),
+              );
+            },
           ),
         )
       ],
