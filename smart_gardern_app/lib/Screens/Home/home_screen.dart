@@ -12,55 +12,57 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(),
         body: Center(
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: RoundedButton(
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return ReportScreen();
-                        }),
-                      );
-                    },
-                    text: "Report management"),
-              ),
-              Container(
-                child: RoundedButton(press: () {}, text: "Statistics"),
-              ),
-              Container(
-                child: RoundedButton(press: () {}, text: "Control devices"),
-              ),
-              Container(
-                child: RoundedButton(
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return Overview();
-                        }),
-                      );
-                    },
-                    text: "Plant Library"),
-              ),
-              Container(
-                child: RoundedButton(press: () {}, text: "Chatbox"),
-              ),
-              //Remove this when done testing
-              Container(
-                child: RoundedButton(
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return Demo();
-                        }),
-                      );
-                    },
-                    text: "Demo"),
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: RoundedButton(
+                      press: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return ReportScreen();
+                          }),
+                        );
+                      },
+                      text: "Report management"),
+                ),
+                Container(
+                  child: RoundedButton(press: () {}, text: "Statistics"),
+                ),
+                Container(
+                  child: RoundedButton(press: () {}, text: "Control devices"),
+                ),
+                Container(
+                  child: RoundedButton(
+                      press: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return Overview();
+                          }),
+                        );
+                      },
+                      text: "Plant Library"),
+                ),
+                Container(
+                  child: RoundedButton(press: () {}, text: "Chatbox"),
+                ),
+                //Remove this when done testing
+                Container(
+                  child: RoundedButton(
+                      press: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return Demo();
+                          }),
+                        );
+                      },
+                      text: "Demo"),
+                ),
+              ],
+            ),
           ),
         ));
   }

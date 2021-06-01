@@ -4,27 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/Models/report.dart';
 import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
 
-// class AuthNotifier with ChangeNotifier {
-//   late User _user;
+getcurrentReports(ReportNotifier reportNotifier, ord) async {
+  var temp = reportNotifier.currentList;
+  if (ord == 'Newest First') {
+    if (temp.length > 0) {
+      temp.sort((a, b) => a.date.compareTo(b.date));
+    }
+  } else {
+    if (temp.length > 0) {
+      temp.sort((a, b) => a.date.compareTo(b.date));
+    }
+    temp = temp.reversed.toList();
+  }
+  reportNotifier.reportList = temp;
+}
 
-//   User get user => _user;
-
-//   void setUser(User user) {
-//     _user = user;
-//     notifyListeners();
-//   }
-// }
-
-// initializeCurrentUser(AuthNotifier authNotifier) async {
-//   User? firebaseUser = await FirebaseAuth.instance.currentUser;
-
-//   if (firebaseUser != null) {
-//     print(firebaseUser);
-//     authNotifier.setUser(firebaseUser);
-//   }
-// }
-
-getReports(ReportNotifier reportNotifier) async {
+getReports(ReportNotifier reportNotifier, str) async {
   var user = FirebaseAuth.instance.currentUser;
   var uid;
 
@@ -43,8 +38,31 @@ getReports(ReportNotifier reportNotifier) async {
     Report report = Report.fromMap(document.data(), document.id);
     _reportList.add(report);
   });
-
+  int count = 0;
+  for (var i in _reportList) {
+    if (str == '') {
+      _reportList = _reportList;
+      break;
+    } else if ((i.name.contains(str)) | (i.name == str)) {
+      if (count == 0) {
+        _reportList = [];
+      }
+      count = count + 1;
+      _reportList.add(i);
+    }
+  }
+  // print(_reportList);
   reportNotifier.reportList = _reportList;
+}
+
+updateReport(ReportNotifier reportNotifier, nText, id) async {
+  var temp = reportNotifier.currentList;
+  for (var i in temp) {
+    if (i.rid == id) {
+      i.detail['infor'] = nText;
+    }
+  }
+  reportNotifier.reportList = temp;
 }
 
 deleteReport(Report report, Function reportDeleted, id) async {

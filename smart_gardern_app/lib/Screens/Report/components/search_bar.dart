@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../constant.dart';
+import 'package:smart_gardern_app/Screens/Report/components/api.dart';
+import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
+import 'package:provider/provider.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({
@@ -12,12 +15,18 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   final searchController = TextEditingController();
+  void changing(str) {
+    ReportNotifier reportNotifier =
+        Provider.of<ReportNotifier>(context, listen: false);
+    getReports(reportNotifier, str);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: 5),
-      width: size.width * 0.9,
+      width: size.width * 0.7,
       height: 40,
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),
@@ -26,6 +35,7 @@ class _SearchBarState extends State<SearchBar> {
         controller: searchController,
         onEditingComplete: () {
           //Navigate to search result screen here
+          changing(searchController.text);
           print(searchController.text);
         },
         decoration: InputDecoration(

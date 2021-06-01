@@ -81,7 +81,8 @@ class _ReportState extends State<Reports> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return ReportDetail(detail: widget.detail, na: Rname);
+                          return ReportDetail(
+                              detail: widget.detail, na: Rname, id: widget.rid);
                         }),
                       );
                     },

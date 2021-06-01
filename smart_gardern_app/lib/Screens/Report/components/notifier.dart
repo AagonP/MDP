@@ -13,6 +13,8 @@ class ReportNotifier with ChangeNotifier {
 
   Report get currentReport => _currentReport;
 
+  List<Report> get currentList => _reportList;
+
   set reportList(List<Report> reportList) {
     _reportList = reportList;
     notifyListeners();

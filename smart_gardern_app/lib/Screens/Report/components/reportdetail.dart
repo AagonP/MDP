@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Screens/Report/components/EditNote.dart';
 import 'package:smart_gardern_app/Screens/Report/report_screen.dart';
 
 class ReportDetail extends StatefulWidget {
   final detail;
   final na;
-  const ReportDetail({Key? key, required this.detail, required this.na})
+  final id;
+  const ReportDetail(
+      {Key? key, required this.detail, required this.na, required this.id})
       : super(key: key);
   @override
   _ReportDetail createState() => _ReportDetail();
@@ -134,20 +137,75 @@ class _ReportDetail extends State<ReportDetail> {
                   ),
                 ),
                 Positioned(
-                  top: size.height * 0.33,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Text(
-                          "More Information:",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.0,
+                  top: size.height * 0.30,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, left: 3.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text("More Information",
+                                style: TextStyle(
+                                    fontSize: 24, color: Colors.black),
+                                textAlign: TextAlign.left),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: SizedBox(
+                          width: size.width * 1,
+                          height: size.height * 0.3,
+                          child: Card(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 10),
+                            color: Colors.white,
+                            elevation: 15,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Colors.black,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: InkWell(
+                              child: Column(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(children: [
+                                      setNoteText(
+                                          widget.detail['infor'].toString()),
+                                    ]),
+                                  )
+                                ],
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EditNotesView(
+                                            str: widget.detail['infor']
+                                                .toString(),
+                                            name: widget.na,
+                                            id: widget.id)));
+                              },
+                            ),
                           ),
                         ),
-                        Text(widget.detail["infor"].toString()),
-                      ],
-                    ),
+                        // Column(
+                        //   children: [
+                        //     Text(
+                        //       "More Information:",
+                        //       style: const TextStyle(
+                        //         fontWeight: FontWeight.bold,
+                        //         fontSize: 18.0,
+                        //       ),
+                        //     ),
+                        //     Text(widget.detail["infor"].toString()),
+                        //   ],
+                        // ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -156,5 +214,32 @@ class _ReportDetail extends State<ReportDetail> {
         ),
       ]),
     );
+  }
+
+  Widget setNoteText(text) {
+    return new Container(
+      padding: const EdgeInsets.all(16.0),
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: new Column(
+        children: <Widget>[
+          new Text(
+            text,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontSize: 18, color: Colors.black, fontFamily: 'Roboto'),
+          ),
+        ],
+      ),
+    );
+    // return Padding(
+    //   padding: const EdgeInsets.only(top: 10.0, left: 5.0),
+    //   child: Expanded(
+    //     child: Column(
+    //       children: <Widget>[
+    //         Text(text, style: TextStyle(color: Colors.black, fontSize: 18)),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }

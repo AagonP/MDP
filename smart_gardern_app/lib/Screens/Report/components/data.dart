@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Models/report.dart';
 import 'package:smart_gardern_app/Screens/Report/components/api.dart';
 import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
 import 'package:smart_gardern_app/Screens/Report/components/report.dart';
@@ -16,39 +17,59 @@ class _DataState extends State<Data> {
   void initState() {
     ReportNotifier reportNotifier =
         Provider.of<ReportNotifier>(context, listen: false);
-    getReports(reportNotifier);
-    super.initState();
+    getReports(reportNotifier, "");
+    // super.initState();
   }
+
+  // String dropdownValue = 'Newest First';
+  // String holder = '';
+  // List<String> actorsName = ['Newest First', 'Oldest First'];
+  // void getDropDownItem() {
+  //   setState(() {
+  //     holder = dropdownValue;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     ReportNotifier reportNotifier = Provider.of<ReportNotifier>(context);
     Future<void> _refreshList() async {
-      getReports(reportNotifier);
+      getReports(reportNotifier, "");
     }
 
+    // void chaning() {
+    //   _refreshList();
+    // }
+
+    // for (var i in reportNotifier.reportList) {
+    //   print(i.date);
+    // }
     ScrollController _scrollController = new ScrollController();
-    return new RefreshIndicator(
-      child: ListView.separated(
-        shrinkWrap: true,
-        controller: _scrollController,
-        itemBuilder: (BuildContext context, int index) {
-          // print(reportNotifier.currentReport.);
-          return Reports(
-              name: reportNotifier.reportList[index].name.toString(),
-              device: reportNotifier.reportList[index].device.toString(),
-              date: reportNotifier.reportList[index].date.toString(),
-              detail: reportNotifier.reportList[index].detail,
-              rid: reportNotifier.reportList[index].rid);
-        },
-        itemCount: reportNotifier.reportList.length,
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            color: Colors.black,
-          );
-        },
-      ),
-      onRefresh: _refreshList,
+    return Column(
+      children: <Widget>[
+        new RefreshIndicator(
+          child: ListView.separated(
+            shrinkWrap: true,
+            controller: _scrollController,
+            itemBuilder: (BuildContext context, int index) {
+              // print(reportNotifier.currentReport.);
+              return Reports(
+                  name: reportNotifier.reportList[index].name.toString(),
+                  device: reportNotifier.reportList[index].device.toString(),
+                  date: reportNotifier.reportList[index].date.toString(),
+                  detail: reportNotifier.reportList[index].detail,
+                  rid: reportNotifier.reportList[index].rid);
+            },
+            itemCount: reportNotifier.reportList.length,
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                color: Colors.black,
+              );
+            },
+          ),
+          onRefresh: _refreshList,
+        ),
+      ],
     );
   }
 }
