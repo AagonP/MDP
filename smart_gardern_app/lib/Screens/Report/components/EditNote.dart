@@ -35,7 +35,7 @@ class _EditNotesViewState extends State<EditNotesView> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        color: Colors.deepPurpleAccent,
+        color: Colors.lightGreenAccent,
         child: Hero(
           tag: "TripNotes-${widget.name}",
           transitionOnUserGestures: true,
@@ -57,7 +57,7 @@ class _EditNotesViewState extends State<EditNotesView> {
 
   Widget buildHeading(context) {
     return Material(
-      color: Colors.deepPurpleAccent,
+      color: Colors.lightGreenAccent,
       child: Padding(
         padding: const EdgeInsets.only(left: 20.0, top: 10.0),
         child: Row(
@@ -65,11 +65,12 @@ class _EditNotesViewState extends State<EditNotesView> {
             Expanded(
               child: Text(
                 "More Information",
-                style: TextStyle(fontSize: 24, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 24, color: Colors.black, fontFamily: "roboto"),
               ),
             ),
             FlatButton(
-              child: Icon(Icons.close, color: Colors.white, size: 30),
+              child: Icon(Icons.close, color: Colors.black, size: 30),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -82,7 +83,7 @@ class _EditNotesViewState extends State<EditNotesView> {
 
   Widget buildNotesText() {
     return Material(
-      color: Colors.deepPurpleAccent,
+      color: Colors.lightGreenAccent,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: TextField(
@@ -91,9 +92,9 @@ class _EditNotesViewState extends State<EditNotesView> {
           decoration: InputDecoration(
             border: InputBorder.none,
           ),
-          cursorColor: Colors.white,
+          cursorColor: Colors.black,
           autofocus: true,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black, fontFamily: "Roboto"),
         ),
       ),
     );
@@ -121,10 +122,10 @@ class _EditNotesViewState extends State<EditNotesView> {
     }
 
     return Material(
-      color: Colors.deepPurpleAccent,
+      color: Colors.lightGreenAccent,
       child: RaisedButton(
         child: Text("Save"),
-        color: Colors.greenAccent,
+        color: Colors.green,
         onPressed: () async {
           updated(_notesController.text);
 

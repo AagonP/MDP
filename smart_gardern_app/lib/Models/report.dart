@@ -28,7 +28,6 @@ class Report {
       'device': device,
       'date': date,
       'detail': detail,
-      'rid': rid
     };
   }
 }

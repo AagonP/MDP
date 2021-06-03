@@ -17,33 +17,19 @@ class _DataState extends State<Data> {
   void initState() {
     ReportNotifier reportNotifier =
         Provider.of<ReportNotifier>(context, listen: false);
-    getReports(reportNotifier, "");
-    // super.initState();
+    getReports(reportNotifier, reportNotifier.currentsearchValue,
+        reportNotifier.currentorderValue);
+    super.initState();
   }
-
-  // String dropdownValue = 'Newest First';
-  // String holder = '';
-  // List<String> actorsName = ['Newest First', 'Oldest First'];
-  // void getDropDownItem() {
-  //   setState(() {
-  //     holder = dropdownValue;
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
     ReportNotifier reportNotifier = Provider.of<ReportNotifier>(context);
     Future<void> _refreshList() async {
-      getReports(reportNotifier, "");
+      getReports(reportNotifier, reportNotifier.currentsearchValue,
+          reportNotifier.currentorderValue);
     }
 
-    // void chaning() {
-    //   _refreshList();
-    // }
-
-    // for (var i in reportNotifier.reportList) {
-    //   print(i.date);
-    // }
     ScrollController _scrollController = new ScrollController();
     return Column(
       children: <Widget>[

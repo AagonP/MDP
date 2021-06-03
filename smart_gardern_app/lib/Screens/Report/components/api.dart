@@ -1,25 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/Models/report.dart';
 import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
 
-getcurrentReports(ReportNotifier reportNotifier, ord) async {
-  var temp = reportNotifier.currentList;
-  if (ord == 'Newest First') {
-    if (temp.length > 0) {
-      temp.sort((a, b) => a.date.compareTo(b.date));
-    }
-  } else {
-    if (temp.length > 0) {
-      temp.sort((a, b) => a.date.compareTo(b.date));
-    }
-    temp = temp.reversed.toList();
-  }
-  reportNotifier.reportList = temp;
-}
-
-getReports(ReportNotifier reportNotifier, str) async {
+getReports(ReportNotifier reportNotifier, str, ord) async {
   var user = FirebaseAuth.instance.currentUser;
   var uid;
 
@@ -51,12 +35,23 @@ getReports(ReportNotifier reportNotifier, str) async {
       _reportList.add(i);
     }
   }
-  // print(_reportList);
+
+  if (ord == 'Oldest First') {
+    if (_reportList.length > 0) {
+      _reportList.sort((a, b) => a.date.compareTo(b.date));
+    }
+  } else {
+    if (_reportList.length > 0) {
+      _reportList.sort((a, b) => a.date.compareTo(b.date));
+    }
+    _reportList = _reportList.reversed.toList();
+  }
+
   reportNotifier.reportList = _reportList;
 }
 
 updateReport(ReportNotifier reportNotifier, nText, id) async {
-  var temp = reportNotifier.currentList;
+  var temp = reportNotifier.reportList;
   for (var i in temp) {
     if (i.rid == id) {
       i.detail['infor'] = nText;
@@ -81,4 +76,28 @@ deleteReport(Report report, Function reportDeleted, id) async {
       .delete();
 
   reportDeleted(report);
+}
+
+addReport(data, Function reportAdded, ReportNotifier reportNotifier) async {
+  var user = FirebaseAuth.instance.currentUser;
+  var uid;
+
+  if (user != null) {
+    uid = user.uid;
+  }
+  Report re =
+      Report.fromMap(data, (reportNotifier.reportList.length + 1).toString());
+  for (var i in reportNotifier.reportList) {
+    print(i.date);
+  }
+  await FirebaseFirestore.instance
+      .collection('User')
+      .doc(uid.toString())
+      .collection("Report")
+      .add(re.toMap());
+
+  reportAdded(re);
+  for (var i in reportNotifier.reportList) {
+    print(i.date);
+  }
 }

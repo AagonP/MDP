@@ -16,19 +16,22 @@ class DropDownWidget extends State<DropDown> {
     setState(() {
       holder = dropdownValue;
     });
-    // print(holder);
     changing(holder);
   }
 
   void changing(str) {
     ReportNotifier reportNotifier =
         Provider.of<ReportNotifier>(context, listen: false);
-    getcurrentReports(reportNotifier, str);
-    // print("Changing");
+    reportNotifier.order = holder;
+    getReports(reportNotifier, reportNotifier.currentsearchValue,
+        reportNotifier.currentorderValue);
   }
 
   @override
   Widget build(BuildContext context) {
+    ReportNotifier reportNotifier =
+        Provider.of<ReportNotifier>(context, listen: false);
+    dropdownValue = reportNotifier.currentorderValue;
     return Padding(
       padding: const EdgeInsets.fromLTRB(25.0, 0.0, 0.0, 0.0),
       child: Row(
@@ -45,10 +48,10 @@ class DropDownWidget extends State<DropDown> {
                 color: Colors.deepPurpleAccent,
               ),
               onChanged: (String? data) {
-                getDropDownItem();
                 setState(() {
                   dropdownValue = data!;
                 });
+                getDropDownItem();
               },
               items: actorsName.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(

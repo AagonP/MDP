@@ -80,33 +80,8 @@ class _ReportState extends State<Reports> {
                         ),
                       ]),
                 ),
-                // Padding(
-                //     padding: const EdgeInsets.fromLTRB(60.0, 8.0, 0.0, 8.0),
-                //     child: ElevatedButton(
-                //       onPressed: () {
-                //         Navigator.push(
-                //           context,
-                //           MaterialPageRoute(builder: (context) {
-                //             return ReportDetail(
-                //                 detail: widget.detail,
-                //                 na: Rname,
-                //                 id: widget.rid);
-                //           }),
-                //         );
-                //       },
-                //       child: Container(
-                //         alignment: Alignment.center,
-                //         child: SizedBox(
-                //             height: size.height * 0.06,
-                //             width: size.width * 0.1,
-                //             child: Container(
-                //               alignment: Alignment.center,
-                //               child: Text("More"),
-                //             )),
-                //       ),
-                //     )),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(89.0, 8.0, 0.0, 8.0),
+                  padding: const EdgeInsets.fromLTRB(80.0, 8.0, 0.0, 8.0),
                   child: Container(
                     alignment: Alignment.topRight,
                     child: IconButton(

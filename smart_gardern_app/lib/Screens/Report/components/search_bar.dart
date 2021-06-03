@@ -18,7 +18,10 @@ class _SearchBarState extends State<SearchBar> {
   void changing(str) {
     ReportNotifier reportNotifier =
         Provider.of<ReportNotifier>(context, listen: false);
-    getReports(reportNotifier, str);
+    reportNotifier.searching = str;
+    print(reportNotifier.searchValue);
+    getReports(reportNotifier, reportNotifier.currentsearchValue,
+        reportNotifier.currentorderValue);
   }
 
   @override

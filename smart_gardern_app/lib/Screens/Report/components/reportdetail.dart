@@ -206,7 +206,7 @@ class _ReportDetail extends State<ReportDetail> {
 
   Widget setNoteText(text) {
     return new Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(4.0),
       width: MediaQuery.of(context).size.width * 0.8,
       child: new Column(
         children: <Widget>[
@@ -219,15 +219,5 @@ class _ReportDetail extends State<ReportDetail> {
         ],
       ),
     );
-    // return Padding(
-    //   padding: const EdgeInsets.only(top: 10.0, left: 5.0),
-    //   child: Expanded(
-    //     child: Column(
-    //       children: <Widget>[
-    //         Text(text, style: TextStyle(color: Colors.black, fontSize: 18)),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
