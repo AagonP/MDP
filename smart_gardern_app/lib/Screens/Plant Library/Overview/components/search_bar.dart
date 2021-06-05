@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Screens/Plant%20Library/SearchResult/search_result_screen.dart';
 import '../../../../constant.dart';
 
 class SearchBar extends StatefulWidget {
@@ -25,8 +26,15 @@ class _SearchBarState extends State<SearchBar> {
       child: TextField(
         controller: searchController,
         onEditingComplete: () {
-          //Navigate to search result screen here
-          print(searchController.text);
+          //TODO: Refactor
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return SearchResultScreen(searchKey: searchController.text);
+              },
+            ),
+          );
         },
         decoration: InputDecoration(
           hintText: 'Search',

@@ -5,6 +5,7 @@ import 'package:smart_gardern_app/Screens/Plant%20Library/Overview/components/se
 import 'package:smart_gardern_app/Screens/Plant%20Library/Overview/components/top_bar.dart';
 import 'package:smart_gardern_app/Screens/Plant%20Library/PlantDetail/plant_detail_screen.dart';
 import 'package:smart_gardern_app/components/CustomListTile.dart';
+import 'package:smart_gardern_app/constant.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -16,10 +17,9 @@ class Body extends StatelessWidget {
         final items = plant.getList();
         return Column(
           children: [
-            TopBar(
-              children: [
-                SearchBar(),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: kDefaultPadding, horizontal: kDefaultPadding),
             ),
             Expanded(
               child: GridView.count(

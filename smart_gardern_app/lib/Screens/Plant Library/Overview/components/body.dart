@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Screens/Plant%20Library/Overview/components/tool_bar.dart';
 
 import '../../SavedPlants/saved_plants.dart';
 import '../../../../components/custtom_icon_button.dart';
@@ -36,35 +37,5 @@ class Body extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class ToolBar extends StatelessWidget {
-  const ToolBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: kDefaultPadding, vertical: kDefaultPadding),
-        child: Row(
-          children: [
-            CustomIconButton(
-              icon: Icons.folder,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SavedPlantScreen();
-                    },
-                  ),
-                );
-              },
-            )
-          ],
-        ));
   }
 }
