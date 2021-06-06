@@ -27,13 +27,13 @@ class PlantCard extends StatelessWidget {
           color: Colors.white,
         ),
         title: Text(
-          selectedPlant.commonName,
+          selectedPlant.genus,
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         subtitle: Text(
-          selectedPlant.familyName,
+          selectedPlant.commonName,
           style: TextStyle(
             color: Colors.white,
           ),

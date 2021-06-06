@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_gardern_app/Screens/Plant%20Library/SavedPlants/saved_plants.dart';
@@ -30,14 +32,38 @@ class SavedBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${selectedPlant.commonName}",
+                  '${selectedPlant.commonName[0].toUpperCase()}${selectedPlant.commonName.substring(1)}',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 CustomIconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // TODO: Refactor this function
-                    Provider.of<SavedPlantModel>(context, listen: false)
-                        .remove(index);
+                    var userToken = FirebaseAuth.instance.currentUser!.email;
+                    CollectionReference<Map<String, dynamic>> users =
+                        FirebaseFirestore.instance.collection('users');
+                    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+                        await users.doc(userToken).get();
+                    if (documentSnapshot.data() != null) {
+                      print(selectedPlant.commonName);
+                      final List<dynamic> savedPlants =
+                          documentSnapshot.data()!['saved_plants'];
+                      savedPlants.removeWhere(
+                          (element) => element == selectedPlant.commonName);
+                      await users
+                          .doc(userToken)
+                          .update({'saved_plants': savedPlants});
+                      await users
+                          .doc(userToken)
+                          .collection('plants')
+                          .where('common_name',
+                              isEqualTo: selectedPlant.commonName)
+                          .get()
+                          .then((QuerySnapshot querySnapshot) {
+                        querySnapshot.docs.forEach((doc) {
+                          doc.reference.delete();
+                        });
+                      });
+                    }
                     ScaffoldMessenger.of(context).showSnackBar(removeSnackBar);
                     Navigator.push(
                       context,
@@ -54,7 +80,7 @@ class SavedBody extends StatelessWidget {
             ),
           ),
           Text(
-            "${selectedPlant.familyName}",
+            "${selectedPlant.genus}",
             style: TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
           ),
           InformationBar(selectedPlant: selectedPlant),

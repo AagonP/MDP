@@ -23,7 +23,7 @@ class Body extends StatelessWidget {
               ],
             ),
             HeaderText(
-              text: 'Plant Category',
+              text: 'Category',
               alignment: Alignment.centerLeft,
             ),
             PlantCategoryBar(),
