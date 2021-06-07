@@ -7,7 +7,42 @@ import '../../../../constant.dart';
 import '../../../../Models/plant.dart';
 import 'background.dart';
 import 'information_bar.dart';
-import 'package:provider/provider.dart';
+
+Future<void> savePlants(selectedPlant) async {
+  var userToken = FirebaseAuth.instance.currentUser!.email;
+  CollectionReference<Map<String, dynamic>> users =
+      FirebaseFirestore.instance.collection('users');
+  DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+      await users.doc(userToken).get();
+  final plantsRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc(userToken)
+      .collection('plants')
+      .withConverter<Plant>(
+        fromFirestore: (snapshot, _) => Plant.fromJson(snapshot.data()!),
+        toFirestore: (plant, _) => plant.toJson(),
+      );
+
+  if (documentSnapshot.data()!.isNotEmpty) {
+    final List<dynamic> savedPlants = documentSnapshot.data()!['saved_plants'];
+    if (!savedPlants.contains(selectedPlant.commonName)) {
+      savedPlants.add(selectedPlant.commonName);
+      users.doc(userToken).set(
+        {
+          'saved_plants': savedPlants,
+        },
+      );
+      plantsRef.add(selectedPlant);
+    }
+  } else {
+    users.doc(userToken).set(
+      {
+        'saved_plants': [selectedPlant.commonName],
+      },
+    );
+    plantsRef.add(selectedPlant);
+  }
+}
 
 class Body extends StatelessWidget {
   final Plant selectedPlant;
@@ -34,60 +69,7 @@ class Body extends StatelessWidget {
                 ),
                 CustomIconButton(
                   onPressed: () async {
-                    var userToken = FirebaseAuth.instance.currentUser!.email;
-                    CollectionReference<Map<String, dynamic>> users =
-                        FirebaseFirestore.instance.collection('users');
-                    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-                        await users.doc(userToken).get();
-                    if (documentSnapshot.data() != null) {
-                      final List<dynamic> savedPlants =
-                          documentSnapshot.data()!['saved_plants'];
-                      if (!savedPlants.contains(selectedPlant.commonName)) {
-                        savedPlants.add(selectedPlant.commonName);
-                        users.doc(userToken).set(
-                          {
-                            'saved_plants': savedPlants,
-                          },
-                        );
-                        users.doc(userToken).collection('plants').add({
-                          'annual': selectedPlant.annual,
-                          'common_name': selectedPlant.commonName,
-                          'description': selectedPlant.description,
-                          'first harvest expected':
-                              selectedPlant.firstHarvestExpected,
-                          'genus': selectedPlant.genus,
-                          'height': selectedPlant.height,
-                          'imageURL': selectedPlant.imageURL,
-                          'last harvest expected':
-                              selectedPlant.lastHarvestExpected,
-                          'median lifespan': selectedPlant.meanLifeSpan,
-                          'row Spacing': selectedPlant.rowSpacing,
-                          'spread': selectedPlant.spread
-                        });
-                      }
-                    } else {
-                      users.doc(userToken).set(
-                        {
-                          'saved_plants': [selectedPlant.commonName],
-                        },
-                      );
-                      users.doc(userToken).collection('plants').add({
-                        'annual': selectedPlant.annual,
-                        'common_name': selectedPlant.commonName,
-                        'description': selectedPlant.description,
-                        'first harvest expected':
-                            selectedPlant.firstHarvestExpected,
-                        'genus': selectedPlant.genus,
-                        'height': selectedPlant.height,
-                        'imageURL': selectedPlant.imageURL,
-                        'last harvest expected':
-                            selectedPlant.lastHarvestExpected,
-                        'median lifespan': selectedPlant.meanLifeSpan,
-                        'row Spacing': selectedPlant.rowSpacing,
-                        'spread': selectedPlant.spread
-                      });
-                    }
-
+                    await savePlants(selectedPlant);
                     ScaffoldMessenger.of(context).showSnackBar(addSnackBar);
                   },
                   icon: Icons.bookmark,

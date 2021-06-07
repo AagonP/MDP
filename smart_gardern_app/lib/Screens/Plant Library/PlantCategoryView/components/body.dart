@@ -1,34 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/Models/plant.dart';
-import 'package:provider/provider.dart';
-import 'package:smart_gardern_app/Screens/Plant%20Library/Overview/components/search_bar.dart';
-import 'package:smart_gardern_app/Screens/Plant%20Library/Overview/components/top_bar.dart';
 import 'package:smart_gardern_app/Screens/Plant%20Library/PlantDetail/plant_detail_screen.dart';
 import 'package:smart_gardern_app/components/CustomListTile.dart';
 import 'package:smart_gardern_app/constant.dart';
 
 Future<List<Plant>> fetchSameGenusPlants(String genus) async {
-  CollectionReference<Map<String, dynamic>> plants =
-      FirebaseFirestore.instance.collection('Plants');
+  final plantsRef =
+      FirebaseFirestore.instance.collection('Plants').withConverter<Plant>(
+            fromFirestore: (snapshot, _) => Plant.fromJson(snapshot.data()!),
+            toFirestore: (plant, _) => plant.toJson(),
+          );
   List<Plant> sameGenusPlants = [];
-  await plants
+  await plantsRef
       .where('genus', isEqualTo: genus)
       .get()
-      .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      .then((QuerySnapshot<Plant> querySnapshot) {
     querySnapshot.docs.forEach((doc) {
-      sameGenusPlants.add(Plant(
-          doc.data()['common_name'],
-          doc.data()['genus'],
-          doc.data()['description'],
-          doc.data()['annual'],
-          doc.data()['median lifespan'],
-          doc.data()['first harvest expected'],
-          doc.data()['last harvest expected'],
-          doc.data()['height'],
-          doc.data()['spread'],
-          doc.data()['row Spacing'],
-          doc.data()['imageURL']));
+      sameGenusPlants.add(doc.data());
     });
   });
   return sameGenusPlants;

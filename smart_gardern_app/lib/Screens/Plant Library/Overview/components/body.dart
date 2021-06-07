@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/Screens/Plant%20Library/Overview/components/tool_bar.dart';
 
-import '../../SavedPlants/saved_plants.dart';
-import '../../../../components/custtom_icon_button.dart';
-import '../../../../constant.dart';
 import 'explore_bar.dart';
 import 'plant_category_bar.dart';
 import '../components/top_bar.dart';

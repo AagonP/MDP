@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smart_gardern_app/Screens/Plant%20Library/SavedPlants/saved_plants.dart';
 
 import '../../../../components/custtom_icon_button.dart';
@@ -9,6 +8,29 @@ import '../../../../constant.dart';
 import '../../../../Models/plant.dart';
 import 'background.dart';
 import 'information_bar.dart';
+
+Future<void> deletePlant(selectedPlant) async {
+  var userToken = FirebaseAuth.instance.currentUser!.email;
+  CollectionReference<Map<String, dynamic>> users =
+      FirebaseFirestore.instance.collection('users');
+  DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+      await users.doc(userToken).get();
+  if (documentSnapshot.data()!.isNotEmpty) {
+    final List<dynamic> savedPlants = documentSnapshot.data()!['saved_plants'];
+    savedPlants.removeWhere((element) => element == selectedPlant.commonName);
+    await users.doc(userToken).update({'saved_plants': savedPlants});
+    await users
+        .doc(userToken)
+        .collection('plants')
+        .where('common_name', isEqualTo: selectedPlant.commonName)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        doc.reference.delete();
+      });
+    });
+  }
+}
 
 class SavedBody extends StatelessWidget {
   final Plant selectedPlant;
@@ -37,33 +59,7 @@ class SavedBody extends StatelessWidget {
                 ),
                 CustomIconButton(
                   onPressed: () async {
-                    // TODO: Refactor this function
-                    var userToken = FirebaseAuth.instance.currentUser!.email;
-                    CollectionReference<Map<String, dynamic>> users =
-                        FirebaseFirestore.instance.collection('users');
-                    DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-                        await users.doc(userToken).get();
-                    if (documentSnapshot.data() != null) {
-                      print(selectedPlant.commonName);
-                      final List<dynamic> savedPlants =
-                          documentSnapshot.data()!['saved_plants'];
-                      savedPlants.removeWhere(
-                          (element) => element == selectedPlant.commonName);
-                      await users
-                          .doc(userToken)
-                          .update({'saved_plants': savedPlants});
-                      await users
-                          .doc(userToken)
-                          .collection('plants')
-                          .where('common_name',
-                              isEqualTo: selectedPlant.commonName)
-                          .get()
-                          .then((QuerySnapshot querySnapshot) {
-                        querySnapshot.docs.forEach((doc) {
-                          doc.reference.delete();
-                        });
-                      });
-                    }
+                    await deletePlant(selectedPlant);
                     ScaffoldMessenger.of(context).showSnackBar(removeSnackBar);
                     Navigator.push(
                       context,

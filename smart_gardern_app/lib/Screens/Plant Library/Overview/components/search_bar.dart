@@ -26,7 +26,6 @@ class _SearchBarState extends State<SearchBar> {
       child: TextField(
         controller: searchController,
         onEditingComplete: () {
-          //TODO: Refactor
           Navigator.push(
             context,
             MaterialPageRoute(

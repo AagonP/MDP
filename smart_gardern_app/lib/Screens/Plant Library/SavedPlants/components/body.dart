@@ -2,31 +2,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_gardern_app/Models/plant.dart';
-import 'package:provider/provider.dart';
 import '../../../../constant.dart';
 import 'plant_card.dart';
 
 Future<List<Plant>> fetchSavedPlants() async {
   var userToken = FirebaseAuth.instance.currentUser!.email;
-  CollectionReference<Map<String, dynamic>> plants = FirebaseFirestore.instance
+  final plantsRef = FirebaseFirestore.instance
       .collection('users')
       .doc(userToken)
-      .collection('plants');
+      .collection('plants')
+      .withConverter<Plant>(
+        fromFirestore: (snapshot, _) => Plant.fromJson(snapshot.data()!),
+        toFirestore: (plant, _) => plant.toJson(),
+      );
   List<Plant> savedPlants = [];
-  await plants.get().then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+  await plantsRef.get().then((QuerySnapshot<Plant> querySnapshot) {
     querySnapshot.docs.forEach((doc) {
-      savedPlants.add(Plant(
-          doc.data()['common_name'],
-          doc.data()['genus'],
-          doc.data()['description'],
-          doc.data()['annual'],
-          doc.data()['median lifespan'],
-          doc.data()['first harvest expected'],
-          doc.data()['last harvest expected'],
-          doc.data()['height'],
-          doc.data()['spread'],
-          doc.data()['row Spacing'],
-          doc.data()['imageURL']));
+      savedPlants.add(doc.data());
     });
   });
   return savedPlants;
@@ -61,19 +53,8 @@ class _SavedPlantCardsState extends State<SavedPlantCards> {
       future: fetchSavedPlants(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: kDefaultPadding,
-              vertical: kDefaultPadding,
-            ),
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) {
-                return PlantCard(
-                    selectedPlant: snapshot.data![index], index: index);
-              },
-            ),
+          return SavedPlantsListView(
+            snapshot: snapshot,
           );
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
@@ -81,6 +62,31 @@ class _SavedPlantCardsState extends State<SavedPlantCards> {
         // By default, show a loading spinner.
         return Center(child: CircularProgressIndicator());
       },
+    );
+  }
+}
+
+class SavedPlantsListView extends StatelessWidget {
+  const SavedPlantsListView({
+    Key? key,
+    this.snapshot,
+  }) : super(key: key);
+  final snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: kDefaultPadding,
+        vertical: kDefaultPadding,
+      ),
+      child: ListView.builder(
+        itemCount: snapshot.data!.length,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          return PlantCard(selectedPlant: snapshot.data![index], index: index);
+        },
+      ),
     );
   }
 }
