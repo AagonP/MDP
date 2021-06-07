@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:smart_gardern_app/Models/device.dart';
+import 'package:smart_gardern_app/Screens/Initial%20Screens/Welcome/welcome_screen.dart';
 import 'dart:async';
 
 import 'Models/plant.dart';
@@ -12,8 +14,10 @@ void main() {
     // Providers
     MultiProvider(
       providers: [
+        //ChangeNotifierProvider(create: (context) => Device()),
         ChangeNotifierProvider(create: (context) => PlantModel()),
         ChangeNotifierProvider(create: (context) => SavedPlantModel()),
+        ChangeNotifierProvider(create: (context) => DeviceModel()),
       ],
       child: App(),
     ),
@@ -62,7 +66,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: HomeScreen(),
+      home: WelcomeScreen(),
     );
   }
 }

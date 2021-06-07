@@ -1,16 +1,19 @@
+import 'dart:math';
+
 import 'package:mqtt_client/mqtt_client.dart';
 import 'dart:async';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 const host = 'io.adafruit.com';
 const port = 1883;
-const adafruit_user = 'pmhieu58';
-const key = 'aio_TyFS72TlW1Yh6JLDiTtQITZxX1Nz';
-const defaultFeedPath = 'pmhieu58/feeds/';
+const adafruit_user = 'CSE_BBC'; //'pmhieu58';
+const key =
+    'aio_mLkY63WrLLbDcOPzEG3M9jg74h2A'; //'aio_TyFS72TlW1Yh6JLDiTtQITZxX1Nz';
+const defaultFeedPath = 'CSE_BBC/feeds/'; // 'pmhieu58/feeds/';
 
 class MqttHelper {
-  static MqttServerClient? client;
-  static Future<void> publish(String topic, String value) async {
+  MqttServerClient? client;
+  Future<void> publish(String topic, String value) async {
     if (client == null) {
       await connect();
     }
@@ -20,7 +23,7 @@ class MqttHelper {
         defaultFeedPath + topic, MqttQos.atLeastOnce, builder.payload!);
   }
 
-  static Future<void> subcribe(String topic) async {
+  Future<void> subcribe(String topic) async {
     if (client == null) {
       await connect();
     }
@@ -53,12 +56,13 @@ class MqttHelper {
   }
 
 // PING response received
-  static void pong() {
+  void pong() {
     print('Ping response client callback invoked');
   }
 
-  static Future<MqttServerClient?> connect() async {
-    client = MqttServerClient.withPort(host, 'flutter_client', port);
+  Future<MqttServerClient?> connect() async {
+    Random random = Random();
+    client = MqttServerClient.withPort(host, '', port);
     client!.logging(on: true);
     client!.onConnected = onConnected;
     client!.onDisconnected = onDisconnected;

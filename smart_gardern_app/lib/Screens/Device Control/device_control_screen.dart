@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Screens/Device%20Control/Statistic/statistic_tab.dart';
 import 'package:smart_gardern_app/constant.dart';
 import 'package:smart_gardern_app/Screens/Device Control/Control/control_tab.dart';
 import 'package:smart_gardern_app/Screens/Device Control/Schedule/schedule_tab.dart';
@@ -12,7 +13,7 @@ class DeviceControl extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: DefaultTabController(
-            length: 2,
+            length: 3,
             child: Scaffold(
                 appBar: AppBar(
                   backgroundColor: kPrimaryColor,
@@ -33,6 +34,10 @@ class DeviceControl extends StatelessWidget {
                         icon: Icon(Icons.settings),
                         text: "Control",
                       ),
+                      Tab(
+                        icon: Icon(Icons.leaderboard),
+                        text: "Statistic",
+                      ),
                     ],
                   ),
                 ),
@@ -40,6 +45,7 @@ class DeviceControl extends StatelessWidget {
                   children: <Widget>[
                     ScheduleTab(),
                     ControlTab(),
+                    StatisticTab(),
                   ],
                 ))));
   }

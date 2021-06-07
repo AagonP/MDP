@@ -1,6 +1,7 @@
 library event_calendar;
 
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Screens/Device%20Control/Schedule/api.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:smart_gardern_app/Screens/Device Control/Schedule/data_schedule.dart';
 import 'package:smart_gardern_app/Models/event.dart';
@@ -27,7 +28,6 @@ late DateTime _startDate;
 late TimeOfDay _startTime;
 late DateTime _endDate;
 late TimeOfDay _endTime;
-bool _isAllDay = false;
 String _subject = '';
 String _notes = '';
 
@@ -40,14 +40,22 @@ class _ScheduleTabState extends State<ScheduleTab> {
 
   @override
   void initState() {
-    _calendarView = CalendarView.month;
-    appointments = getMeetingDetails();
+    super.initState();
+    asyncMethod().whenComplete(() {
+      setState(() {});
+    }).catchError((error, stackTrace) {
+      print("outer: $error");
+    });
+  }
+
+  Future<void> asyncMethod() async {
+    appointments = await getEvents();
     _events = DataSource(appointments);
     _selectedAppointment = null;
     _selectedColorIndex = 1;
     _subject = '';
     _notes = '';
-    super.initState();
+    _calendarView = CalendarView.month;
   }
 
   @override
@@ -81,10 +89,8 @@ class _ScheduleTabState extends State<ScheduleTab> {
         calendarTapDetails.targetElement != CalendarElement.appointment) {
       return;
     }
-
     setState(() {
       _selectedAppointment = null;
-      _isAllDay = false;
       _selectedColorIndex = 0;
       _subject = '';
       _notes = '';
@@ -96,10 +102,11 @@ class _ScheduleTabState extends State<ScheduleTab> {
           final Event meetingDetails = calendarTapDetails.appointments![0];
           _startDate = meetingDetails.from;
           _endDate = meetingDetails.to;
-          _isAllDay = meetingDetails.isAllDay;
           _subject = meetingDetails.eventName == '(No title)'
               ? ''
               : meetingDetails.eventName;
+          _selectedColorIndex =
+              _colorCollection.indexOf(meetingDetails.background);
           _notes = meetingDetails.description;
           _selectedAppointment = meetingDetails;
         } else {
@@ -119,8 +126,8 @@ class _ScheduleTabState extends State<ScheduleTab> {
     });
   }
 
-  List<Event> getMeetingDetails() {
-    final List<Event> eventCollection = <Event>[];
+  Future<List<Event>> getMeetingDetails() async {
+    var eventCollection = await getEvents();
 
     eventNameCollection = <String>[];
     eventNameCollection.add('Watering');
@@ -147,25 +154,11 @@ class _ScheduleTabState extends State<ScheduleTab> {
     _colorNames.add('Peach');
     _colorNames.add('Gray');
 
-    final DateTime today = DateTime.now();
     final Random random = Random();
-    for (int month = 0; month < 1; month++) {
-      for (int day = 0; day < 5; day++) {
-        for (int hour = 9; hour < 18; hour += 5) {
-          eventCollection.add(Event(
-            from: today
-                .add(Duration(days: (month * 30) + day))
-                .add(Duration(hours: hour)),
-            to: today
-                .add(Duration(days: (month * 30) + day))
-                .add(Duration(hours: hour + 2)),
-            background: _colorCollection[random.nextInt(9)],
-            description: '',
-            isAllDay: false,
-            eventName: eventNameCollection[0],
-          ));
-        }
-      }
+    for (var _event in eventCollection) {
+      _event.background = _colorCollection[random.nextInt(9)];
+      _event.description = '';
+      _event.eventName = eventNameCollection[0];
     }
 
     return eventCollection;

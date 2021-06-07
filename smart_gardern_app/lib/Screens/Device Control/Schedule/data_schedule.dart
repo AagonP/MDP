@@ -8,9 +8,6 @@ class DataSource extends CalendarDataSource {
   }
 
   @override
-  bool isAllDay(int index) => appointments![index].isAllDay;
-
-  @override
   String getSubject(int index) => appointments![index].eventName;
 
   @override
