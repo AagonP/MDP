@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smart_gardern_app/Screens/Plant%20Library/PlantIdentification/plant_identification_screen.dart';
+import 'package:smart_gardern_app/Screens/Plant%20Library/SavedPlants/saved_plants.dart';
+import 'package:smart_gardern_app/components/custtom_icon_button.dart';
 
-import '../../../../components/custtom_icon_button.dart';
-import '../../../../constant.dart';
 import 'explore_bar.dart';
 import 'plant_category_bar.dart';
 import '../components/top_bar.dart';
@@ -16,12 +17,42 @@ class Body extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TopBar(
-              childrens: <Widget>[
+              children: <Widget>[
                 SearchBar(),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5)),
+                CustomIconButton(
+                  icon: Icons.folder,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SavedPlantScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5)),
+                CustomIconButton(
+                  icon: Icons.search,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PlantIdentificationScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             HeaderText(
-              text: 'Plant Category',
+              text: 'Category',
               alignment: Alignment.centerLeft,
             ),
             PlantCategoryBar(),
@@ -30,31 +61,9 @@ class Body extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             ExploreBar(),
-            ToolBar(),
           ],
         ),
       ),
     );
-  }
-}
-
-class ToolBar extends StatelessWidget {
-  const ToolBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: kDefaultPadding, vertical: kDefaultPadding),
-        child: Row(
-          children: [
-            CustomIconButton(
-              icon: Icons.folder,
-              onPressed: () {},
-            )
-          ],
-        ));
   }
 }

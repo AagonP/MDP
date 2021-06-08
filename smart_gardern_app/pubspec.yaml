@@ -31,14 +31,18 @@ dependencies:
   # vector file supports
   flutter_svg: ^0.22.0 
   # MQTT support
-  mqtt_client: ^9.3.1 
+  mqtt_client: ^9.3.1
+  firebase_core: ^1.1.1 
+  firebase_auth: ^1.1.4 
+  provider:
+  cloud_firestore:
+  image_picker:
+  http:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  firebase_core: ^1.1.1 
-  firebase_auth: ^1.1.4 
-  provider:
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
