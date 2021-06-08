@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smart_gardern_app/Screens/Plant%20Library/Overview/components/tool_bar.dart';
+import 'package:smart_gardern_app/Screens/Plant%20Library/PlantIdentification/plant_identification_screen.dart';
+import 'package:smart_gardern_app/Screens/Plant%20Library/SavedPlants/saved_plants.dart';
+import 'package:smart_gardern_app/components/custtom_icon_button.dart';
 
 import 'explore_bar.dart';
 import 'plant_category_bar.dart';
@@ -17,6 +19,36 @@ class Body extends StatelessWidget {
             TopBar(
               children: <Widget>[
                 SearchBar(),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5)),
+                CustomIconButton(
+                  icon: Icons.folder,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SavedPlantScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5)),
+                CustomIconButton(
+                  icon: Icons.search,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return PlantIdentificationScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
             HeaderText(
@@ -29,7 +61,6 @@ class Body extends StatelessWidget {
               alignment: Alignment.centerLeft,
             ),
             ExploreBar(),
-            ToolBar(),
           ],
         ),
       ),
