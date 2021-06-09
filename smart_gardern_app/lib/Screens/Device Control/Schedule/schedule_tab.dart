@@ -56,6 +56,28 @@ class _ScheduleTabState extends State<ScheduleTab> {
     _subject = '';
     _notes = '';
     _calendarView = CalendarView.month;
+
+    _colorCollection = <Color>[];
+    _colorCollection.add(const Color(0xFF0F8644));
+    _colorCollection.add(const Color(0xFF8B1FA9));
+    _colorCollection.add(const Color(0xFFD20100));
+    _colorCollection.add(const Color(0xFFFC571D));
+    _colorCollection.add(const Color(0xFF85461E));
+    _colorCollection.add(const Color(0xFFFF00FF));
+    _colorCollection.add(const Color(0xFF3D4FB5));
+    _colorCollection.add(const Color(0xFFE47C73));
+    _colorCollection.add(const Color(0xFF636363));
+
+    _colorNames = <String>[];
+    _colorNames.add('Green');
+    _colorNames.add('Purple');
+    _colorNames.add('Red');
+    _colorNames.add('Orange');
+    _colorNames.add('Caramel');
+    _colorNames.add('Magenta');
+    _colorNames.add('Blue');
+    _colorNames.add('Peach');
+    _colorNames.add('Gray');
   }
 
   @override
@@ -124,43 +146,5 @@ class _ScheduleTabState extends State<ScheduleTab> {
         );
       }
     });
-  }
-
-  Future<List<Event>> getMeetingDetails() async {
-    var eventCollection = await getEvents();
-
-    eventNameCollection = <String>[];
-    eventNameCollection.add('Watering');
-
-    _colorCollection = <Color>[];
-    _colorCollection.add(const Color(0xFF0F8644));
-    _colorCollection.add(const Color(0xFF8B1FA9));
-    _colorCollection.add(const Color(0xFFD20100));
-    _colorCollection.add(const Color(0xFFFC571D));
-    _colorCollection.add(const Color(0xFF85461E));
-    _colorCollection.add(const Color(0xFFFF00FF));
-    _colorCollection.add(const Color(0xFF3D4FB5));
-    _colorCollection.add(const Color(0xFFE47C73));
-    _colorCollection.add(const Color(0xFF636363));
-
-    _colorNames = <String>[];
-    _colorNames.add('Green');
-    _colorNames.add('Purple');
-    _colorNames.add('Red');
-    _colorNames.add('Orange');
-    _colorNames.add('Caramel');
-    _colorNames.add('Magenta');
-    _colorNames.add('Blue');
-    _colorNames.add('Peach');
-    _colorNames.add('Gray');
-
-    final Random random = Random();
-    for (var _event in eventCollection) {
-      _event.background = _colorCollection[random.nextInt(9)];
-      _event.description = '';
-      _event.eventName = eventNameCollection[0];
-    }
-
-    return eventCollection;
   }
 }

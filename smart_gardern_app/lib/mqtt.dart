@@ -6,10 +6,10 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 const host = 'io.adafruit.com';
 const port = 1883;
-const adafruit_user = 'CSE_BBC'; //'pmhieu58';
+const adafruit_user = 'giahung127'; //'pmhieu58';
 const key =
-    'aio_mLkY63WrLLbDcOPzEG3M9jg74h2A'; //'aio_TyFS72TlW1Yh6JLDiTtQITZxX1Nz';
-const defaultFeedPath = 'CSE_BBC/feeds/'; // 'pmhieu58/feeds/';
+    'aio_xhcV87qr6HEiAqz311lG5tA1Us0u'; //'aio_TyFS72TlW1Yh6JLDiTtQITZxX1Nz';
+const defaultFeedPath = 'giahung127/feeds/'; // 'pmhieu58/feeds/';
 
 class MqttHelper {
   MqttServerClient? client;
@@ -61,7 +61,6 @@ class MqttHelper {
   }
 
   Future<MqttServerClient?> connect() async {
-    Random random = Random();
     client = MqttServerClient.withPort(host, '', port);
     client!.logging(on: true);
     client!.onConnected = onConnected;
