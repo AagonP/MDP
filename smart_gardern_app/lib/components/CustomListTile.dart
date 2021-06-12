@@ -33,7 +33,7 @@ class CustomListTile extends StatelessWidget {
                 imageURL,
                 fit: BoxFit.fill,
                 width: size.width * 0.4,
-                height: size.height * 0.2,
+                height: size.height * 0.15,
               ),
             ),
             Container(

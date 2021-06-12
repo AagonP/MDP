@@ -17,8 +17,8 @@ class InformationBar extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.7 * 0.2,
-      padding: EdgeInsets.symmetric(
-          horizontal: kDefaultPadding - 10, vertical: kDefaultPadding),
+      padding:
+          EdgeInsets.symmetric(horizontal: kDefaultPadding - 10, vertical: 10),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
