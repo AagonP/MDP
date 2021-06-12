@@ -33,7 +33,7 @@ class _SavedDataSate extends State<SavedData> {
 
     if (reportNotifier.savedList.length == 0) {
       return Text(
-        "Nothing available yet!",
+        "List of saved report is empty!",
         style: TextStyle(fontSize: 25),
       );
     }

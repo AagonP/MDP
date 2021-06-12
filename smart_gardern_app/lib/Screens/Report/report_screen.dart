@@ -20,12 +20,7 @@ class _ReportScreen extends State<ReportScreen> {
             IconButton(
               icon: Icon(Icons.arrow_back),
               color: Colors.black,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return HomeScreen();
-                }),
-              ),
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ],
         ),
