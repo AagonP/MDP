@@ -19,12 +19,7 @@ class _SavedScreen extends State<SavedScreen> {
             IconButton(
               icon: Icon(Icons.arrow_back),
               color: Colors.black,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return ReportScreen();
-                }),
-              ),
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ],
         ),

@@ -64,12 +64,7 @@ class _ReportDetail extends State<ReportDetail> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back, size: 30.0, color: Colors.white),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return SavedScreen();
-                  }),
-                );
+                Navigator.of(context).pop();
               },
             ),
             backgroundColor: Colors.transparent,
