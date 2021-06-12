@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smart_gardern_app/Screens/Report/report_screen.dart';
 import 'package:smart_gardern_app/constant.dart';
 
 import '../../components/rounded_button.dart';
@@ -128,7 +129,14 @@ class HomeScreen extends StatelessWidget {
                     icon: SvgPicture.asset('assets/icons/clipboard.svg',
                         color: Colors.white),
                     tooltip: 'Report management',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return ReportScreen();
+                        }),
+                      );
+                    },
                   ),
                 ),
                 Container(
