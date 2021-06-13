@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:smart_gardern_app/Models/device.dart';
 import 'package:smart_gardern_app/Screens/Initial%20Screens/Welcome/welcome_screen.dart';
+
+import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
+
 import 'dart:async';
 
 import 'Models/plant.dart';
@@ -17,7 +21,11 @@ void main() {
         //ChangeNotifierProvider(create: (context) => Device()),
         ChangeNotifierProvider(create: (context) => PlantModel()),
         ChangeNotifierProvider(create: (context) => SavedPlantModel()),
+
         ChangeNotifierProvider(create: (context) => DeviceModel()),
+
+        ChangeNotifierProvider(create: (context) => ReportNotifier()),
+
       ],
       child: App(),
     ),
