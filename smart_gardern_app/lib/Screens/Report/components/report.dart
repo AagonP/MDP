@@ -3,6 +3,7 @@ import 'package:smart_gardern_app/Models/report.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_gardern_app/Screens/Report/components/api.dart';
 import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
+import 'package:smart_gardern_app/constant.dart';
 
 class Reports extends StatefulWidget {
   String name;
@@ -59,7 +60,7 @@ class _ReportState extends State<Reports> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.59,
+                  width: MediaQuery.of(context).size.width * 0.58,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
                     child: Column(
@@ -93,7 +94,7 @@ class _ReportState extends State<Reports> {
                     child: IconButton(
                       icon: Icon(Icons.add),
                       iconSize: 40,
-                      color: Colors.green[900],
+                      color: kPrimaryColor,
                       onPressed: () => addReport(reportNotifier.currentReport,
                           _onReportAdded, widget.rid),
                     ),
