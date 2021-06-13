@@ -62,7 +62,7 @@ class _SavedReportState extends State<SavedReports> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.59,
+                  width: MediaQuery.of(context).size.width * 0.58,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
                     child: Column(
