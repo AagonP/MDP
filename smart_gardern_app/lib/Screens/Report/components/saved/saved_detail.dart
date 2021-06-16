@@ -33,7 +33,6 @@ class ReportDetail extends StatefulWidget {
 class _ReportDetail extends State<ReportDetail> {
   @override
   Widget build(BuildContext context) {
-    // final GlobalKey<State<StatefulWidget>> repaintBoundary = new GlobalKey();
     Size size = MediaQuery.of(context).size;
     String pic = "";
     switch (widget.name) {

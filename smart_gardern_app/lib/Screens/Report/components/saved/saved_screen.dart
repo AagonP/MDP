@@ -9,8 +9,6 @@ class SavedScreen extends StatefulWidget {
 class _SavedScreen extends State<SavedScreen> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    final double wid = size.width.toDouble();
     return Scaffold(
       appBar: AppBar(
         leading: Row(

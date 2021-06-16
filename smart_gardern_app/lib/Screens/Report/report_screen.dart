@@ -10,8 +10,6 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreen extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    final double wid = size.width.toDouble();
     return Scaffold(
       appBar: AppBar(
         leading: Row(

@@ -31,7 +31,6 @@ class _SavedDataSate extends State<SavedData> {
       getsaved(reportNotifier);
     }
 
-    Size size = MediaQuery.of(context).size;
     if (reportNotifier.savedList.length == 0) {
       return Column(
         children: <Widget>[
