@@ -14,6 +14,7 @@ class Reports extends StatefulWidget {
   String did;
   String unt;
   String rid;
+  bool checker;
   Reports(
       {Key? key,
       required this.name,
@@ -23,7 +24,8 @@ class Reports extends StatefulWidget {
       required this.min,
       required this.did,
       required this.unt,
-      required this.rid})
+      required this.rid,
+      required this.checker})
       : super(key: key);
   @override
   _ReportState createState() => _ReportState();
@@ -91,13 +93,28 @@ class _ReportState extends State<Reports> {
                   padding: const EdgeInsets.fromLTRB(5.0, 8.0, 0.0, 8.0),
                   child: Container(
                     alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(Icons.add),
-                      iconSize: 40,
-                      color: kPrimaryColor,
-                      onPressed: () => addReport(reportNotifier.currentReport,
-                          _onReportAdded, widget.rid),
-                    ),
+                    child: (widget.checker == false)
+                        ? IconButton(
+                            icon: Icon(Icons.add),
+                            iconSize: 40,
+                            color: kPrimaryColor,
+                            onPressed: () {
+                              addReport(reportNotifier.currentReport,
+                                  _onReportAdded, widget.rid);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Add successful!')));
+                              getsaved(reportNotifier);
+                            })
+                        : IconButton(
+                            icon: Icon(Icons.add),
+                            iconSize: 40,
+                            color: kPrimaryColor,
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'This report already in saved list!')));
+                            },
+                          ),
                   ),
                 ),
               ],

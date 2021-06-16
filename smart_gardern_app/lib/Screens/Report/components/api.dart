@@ -64,6 +64,16 @@ deleteReport(ReportNotifier reportNotifier, Function reportDeleted, id) async {
   reportDeleted(re);
 }
 
+checksavedReport(String id, ReportNotifier reportNotifier) {
+  bool flag = false;
+  for (var i in reportNotifier.savedList) {
+    if (i.rid == id) {
+      flag = true;
+    }
+  }
+  return flag;
+}
+
 addReport(Report report, Function reportAdded, String rid) async {
   var user = FirebaseAuth.instance.currentUser;
   var uemail;
@@ -83,9 +93,6 @@ addReport(Report report, Function reportAdded, String rid) async {
       .doc(uemail.toString())
       .collection('savedlist')
       .add(sl.tomap());
-  //   .update({
-  // "savedlist": FieldValue.arrayUnion([savedrp])
-  // });
 
   reportAdded(re);
 }

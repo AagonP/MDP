@@ -41,9 +41,7 @@ class _SearchBarState extends State<SearchBar> {
       child: TextField(
         controller: searchController,
         onEditingComplete: () {
-          //Navigate to search result screen here
           changing(searchController.text);
-          // print(searchController.text);
         },
         decoration: InputDecoration(
           hintText: 'Search',
