@@ -43,11 +43,6 @@ class SavedPlantCards extends StatefulWidget {
 class _SavedPlantCardsState extends State<SavedPlantCards> {
   late Future<List<Plant>> savedPlants;
   @override
-  void initState() {
-    super.initState();
-    savedPlants = fetchSavedPlants();
-  }
-
   Widget build(BuildContext context) {
     return FutureBuilder<List<Plant>>(
       future: fetchSavedPlants(),

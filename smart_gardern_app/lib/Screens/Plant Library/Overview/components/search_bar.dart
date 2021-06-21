@@ -30,6 +30,7 @@ class _SearchBarState extends State<SearchBar> {
             context,
             MaterialPageRoute(
               builder: (context) {
+                FocusScope.of(context).unfocus();
                 return SearchResultScreen(searchKey: searchController.text);
               },
             ),

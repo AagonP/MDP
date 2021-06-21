@@ -140,7 +140,7 @@ class _ControlTabState extends State<ControlTab> {
                       children: <Widget>[
                         Image.asset(
                           "assets/images/watering.png",
-                          width: 80,
+                          width: 65,
                         ),
                         SizedBox(
                           width: 30,

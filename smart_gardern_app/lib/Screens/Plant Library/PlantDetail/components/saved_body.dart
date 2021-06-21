@@ -61,6 +61,8 @@ class SavedBody extends StatelessWidget {
                   onPressed: () async {
                     await deletePlant(selectedPlant);
                     ScaffoldMessenger.of(context).showSnackBar(removeSnackBar);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(

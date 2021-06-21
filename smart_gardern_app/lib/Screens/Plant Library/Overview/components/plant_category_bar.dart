@@ -17,7 +17,7 @@ Future<List<Plant>> fetchDemoPlants() async {
             fromFirestore: (snapshot, _) => Plant.fromJson(snapshot.data()!),
             toFirestore: (plant, _) => plant.toJson(),
           );
-  for (int i = 0; i < noGenus; i++) {
+  for (int i = 0; i < 10; i++) {
     await plantsRef
         .where('genus', isEqualTo: genuses[i].split('\'')[1])
         .limit(1)

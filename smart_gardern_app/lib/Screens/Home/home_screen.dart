@@ -7,7 +7,6 @@ import 'package:smart_gardern_app/Screens/Report/report_screen.dart';
 
 import 'package:smart_gardern_app/constant.dart';
 
-import '../../components/rounded_button.dart';
 import '../Plant Library/Overview/plantlib_overview_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -60,7 +59,6 @@ class HomeScreen extends StatelessWidget {
                     icon: SvgPicture.asset('assets/icons/control.svg',
                         color: Colors.white),
                     tooltip: 'Control Device',
-
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -141,7 +139,6 @@ class HomeScreen extends StatelessWidget {
                     icon: SvgPicture.asset('assets/icons/clipboard.svg',
                         color: Colors.white),
                     tooltip: 'Report management',
-
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -150,7 +147,6 @@ class HomeScreen extends StatelessWidget {
                         }),
                       );
                     },
-
                   ),
                 ),
                 Container(

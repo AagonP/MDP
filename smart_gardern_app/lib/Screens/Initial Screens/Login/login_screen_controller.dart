@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 Future<bool> loginHandler(
     String email, String password, BuildContext context) async {
   try {
-    UserCredential userCredential = await FirebaseAuth.instance
+    await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {

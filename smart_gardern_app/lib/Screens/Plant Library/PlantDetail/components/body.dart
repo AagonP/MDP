@@ -9,11 +9,10 @@ import 'background.dart';
 import 'information_bar.dart';
 
 Future<void> savePlants(selectedPlant) async {
+  //
   var userToken = FirebaseAuth.instance.currentUser!.email;
   CollectionReference<Map<String, dynamic>> users =
       FirebaseFirestore.instance.collection('users');
-  DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-      await users.doc(userToken).get();
   final plantsRef = FirebaseFirestore.instance
       .collection('users')
       .doc(userToken)
@@ -22,8 +21,17 @@ Future<void> savePlants(selectedPlant) async {
         fromFirestore: (snapshot, _) => Plant.fromJson(snapshot.data()!),
         toFirestore: (plant, _) => plant.toJson(),
       );
-
-  if (documentSnapshot.data()!.isNotEmpty) {
+  // Get document
+  DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+      await users.doc(userToken).get();
+  if (!documentSnapshot.exists) {
+    await users.doc(userToken).set(
+      {
+        'saved_plants': [selectedPlant.commonName],
+      },
+    );
+    plantsRef.add(selectedPlant);
+  } else {
     final List<dynamic> savedPlants = documentSnapshot.data()!['saved_plants'];
     if (!savedPlants.contains(selectedPlant.commonName)) {
       savedPlants.add(selectedPlant.commonName);
@@ -34,13 +42,6 @@ Future<void> savePlants(selectedPlant) async {
       );
       plantsRef.add(selectedPlant);
     }
-  } else {
-    users.doc(userToken).set(
-      {
-        'saved_plants': [selectedPlant.commonName],
-      },
-    );
-    plantsRef.add(selectedPlant);
   }
 }
 
