@@ -3,6 +3,7 @@ import 'package:smart_gardern_app/Models/report.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_gardern_app/Screens/Report/components/api.dart';
 import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
+import 'package:smart_gardern_app/constant.dart';
 
 class Reports extends StatefulWidget {
   String name;
@@ -13,6 +14,7 @@ class Reports extends StatefulWidget {
   String did;
   String unt;
   String rid;
+  bool checker;
   Reports(
       {Key? key,
       required this.name,
@@ -22,7 +24,8 @@ class Reports extends StatefulWidget {
       required this.min,
       required this.did,
       required this.unt,
-      required this.rid})
+      required this.rid,
+      required this.checker})
       : super(key: key);
   @override
   _ReportState createState() => _ReportState();
@@ -59,7 +62,7 @@ class _ReportState extends State<Reports> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.59,
+                  width: MediaQuery.of(context).size.width * 0.58,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
                     child: Column(
@@ -90,13 +93,28 @@ class _ReportState extends State<Reports> {
                   padding: const EdgeInsets.fromLTRB(5.0, 8.0, 0.0, 8.0),
                   child: Container(
                     alignment: Alignment.topRight,
-                    child: IconButton(
-                      icon: Icon(Icons.add),
-                      iconSize: 40,
-                      color: Colors.green[900],
-                      onPressed: () => addReport(reportNotifier.currentReport,
-                          _onReportAdded, widget.rid),
-                    ),
+                    child: (widget.checker == false)
+                        ? IconButton(
+                            icon: Icon(Icons.add),
+                            iconSize: 40,
+                            color: kPrimaryColor,
+                            onPressed: () {
+                              addReport(reportNotifier.currentReport,
+                                  _onReportAdded, widget.rid);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Add successful!')));
+                              getsaved(reportNotifier);
+                            })
+                        : IconButton(
+                            icon: Icon(Icons.add),
+                            iconSize: 40,
+                            color: kPrimaryColor,
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'This report already in saved list!')));
+                            },
+                          ),
                   ),
                 ),
               ],
@@ -118,7 +136,7 @@ class _ReportState extends State<Reports> {
         pic = "assets/images/sun.png";
         break;
       case "SOIL":
-        pic = "assets/images/water.png";
+        pic = "assets/images/soil.png";
         break;
       case "TEMP-HUMID":
         pic = "assets/images/temperature.png";
@@ -132,7 +150,7 @@ class _ReportState extends State<Reports> {
           top: size.height * 0.2,
           child: Container(
             width: size.width * 0.8,
-            height: size.height * 0.4,
+            height: size.height * 0.45,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(29),
@@ -141,7 +159,7 @@ class _ReportState extends State<Reports> {
               children: <Widget>[
                 Positioned(
                   top: size.height * 0.25 * 0.1,
-                  left: size.width * 0.1,
+                  left: size.width * 0.06,
                   right: 0,
                   child: Container(
                     child: Row(
@@ -159,7 +177,7 @@ class _ReportState extends State<Reports> {
                 ),
                 Positioned(
                   top: size.height * 0.1,
-                  left: size.width * 0.1,
+                  left: size.width * 0.06,
                   right: 0,
                   child: Container(
                     child: Row(
@@ -180,100 +198,106 @@ class _ReportState extends State<Reports> {
                   left: size.width * 0,
                   right: 0,
                   child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Image.asset(
-                              pic,
-                              height: size.height * 0.1,
-                              width: size.width * 0.1,
-                              scale: 0.12,
-                            ),
-                            Text(
-                              "Max",
+                    child: DataTable(
+                      columnSpacing: 10,
+                      columns: [
+                        DataColumn(
+                            label: Text(
+                          "Data",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20.0),
+                        )),
+                        DataColumn(
+                            label: Image.asset(
+                          pic,
+                          height: size.height * 0.1,
+                          width: size.width * 0.1,
+                          scale: 0.5,
+                        )),
+                        if (widget.name == "TEMP-HUMID")
+                          DataColumn(
+                              label: Image.asset(
+                            "assets/images/water.png",
+                            height: size.height * 0.1,
+                            width: size.width * 0.1,
+                            scale: 0.5,
+                          )),
+                      ],
+                      rows: [
+                        DataRow(cells: [
+                          DataCell(Text(
+                            "MAX Value",
+                            style: const TextStyle(fontSize: 15.0),
+                          )),
+                          DataCell(Text(
+                            (widget.name == "TEMP-HUMID")
+                                ? double.parse(widget.max.split("-")[0])
+                                        .toStringAsFixed(1) +
+                                    widget.unt.split("-")[0]
+                                : widget.max +
+                                    ((widget.unt != 'nan') ? widget.unt : ""),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                          )),
+                          if (widget.name == "TEMP-HUMID")
+                            DataCell(Text(
+                              double.parse(widget.max.split("-")[1])
+                                      .toStringAsFixed(1) +
+                                  widget.unt.split("-")[1],
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              (widget.name == "TEMP-HUMID")
-                                  ? double.parse(widget.max.split("-")[0])
-                                          .toStringAsFixed(1) +
-                                      widget.unt.split("-")[0] +
-                                      '-' +
-                                      widget.max.split("-")[1] +
-                                      widget.unt.split("-")[1]
-                                  : widget.max +
-                                      ((widget.unt != 'nan') ? widget.unt : ""),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            )),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text(
+                            "MEAN Value",
+                            style: const TextStyle(fontSize: 15.0),
+                          )),
+                          DataCell(Text(
+                            (widget.name == "TEMP-HUMID")
+                                ? double.parse(widget.mean.split("-")[0])
+                                        .toStringAsFixed(1) +
+                                    widget.unt.split("-")[0]
+                                : double.parse(widget.mean).toStringAsFixed(1) +
+                                    ((widget.unt != 'nan') ? widget.unt : ""),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                          )),
+                          if (widget.name == "TEMP-HUMID")
+                            DataCell(Text(
+                              double.parse(widget.mean.split("-")[1])
+                                      .toStringAsFixed(1) +
+                                  widget.unt.split("-")[1],
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              pic,
-                              height: size.height * 0.1,
-                              width: size.width * 0.1,
-                              scale: 0.12,
-                            ),
-                            Text(
-                              "Mean: ",
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            )),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text(
+                            "MIN Value",
+                            style: const TextStyle(fontSize: 15.0),
+                          )),
+                          DataCell(Text(
+                            (widget.name == "TEMP-HUMID")
+                                ? widget.min.split("-")[0] +
+                                    widget.unt.split("-")[0] +
+                                    '-' +
+                                    widget.min.split("-")[1] +
+                                    widget.unt.split("-")[1]
+                                : widget.min +
+                                    ((widget.unt != 'nan') ? widget.unt : ""),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                          )),
+                          if (widget.name == "TEMP-HUMID")
+                            DataCell(Text(
+                              double.parse(widget.min.split("-")[1])
+                                      .toStringAsFixed(1) +
+                                  widget.unt.split("-")[1],
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              (widget.name == "TEMP-HUMID")
-                                  ? double.parse(widget.mean.split("-")[0])
-                                          .toStringAsFixed(1) +
-                                      widget.unt.split("-")[0] +
-                                      '-' +
-                                      double.parse(widget.mean.split("-")[1])
-                                          .toStringAsFixed(1) +
-                                      widget.unt.split("-")[1]
-                                  : double.parse(widget.mean)
-                                          .toStringAsFixed(1) +
-                                      ((widget.unt != 'nan') ? widget.unt : ""),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              pic,
-                              height: size.height * 0.1,
-                              width: size.width * 0.1,
-                              scale: 0.12,
-                            ),
-                            Text(
-                              "Min",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              (widget.name == "TEMP-HUMID")
-                                  ? widget.min.split("-")[0] +
-                                      widget.unt.split("-")[0] +
-                                      '-' +
-                                      widget.min.split("-")[1] +
-                                      widget.unt.split("-")[1]
-                                  : widget.min +
-                                      ((widget.unt != 'nan') ? widget.unt : ""),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          ],
-                        ),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            )),
+                        ]),
                       ],
                     ),
                   ),
@@ -283,13 +307,6 @@ class _ReportState extends State<Reports> {
           ),
         ),
       ]),
-      // actions: [
-      //   ElevatedButton(
-      //       child: Text("Ok"),
-      //       onPressed: () {
-      //         Navigator.of(context).pop(); // Return value
-      //       }),
-      // ],
     );
 
     showDialog(

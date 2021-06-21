@@ -32,9 +32,27 @@ class _SavedDataSate extends State<SavedData> {
     }
 
     if (reportNotifier.savedList.length == 0) {
-      return Text(
-        "List of saved report is empty!",
-        style: TextStyle(fontSize: 25),
+      return Column(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height * 0.75,
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "List of saved report is empty!",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                  ),
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+          )
+        ],
       );
     }
     ScrollController _scrollController = new ScrollController();

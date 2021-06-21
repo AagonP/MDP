@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
 import 'package:smart_gardern_app/Screens/Report/components/saved/EditNote.dart';
-import 'package:smart_gardern_app/Screens/Report/components/saved/saved_screen.dart';
 import 'package:provider/provider.dart';
 
 class ReportDetail extends StatefulWidget {
@@ -34,7 +33,6 @@ class ReportDetail extends StatefulWidget {
 class _ReportDetail extends State<ReportDetail> {
   @override
   Widget build(BuildContext context) {
-    // final GlobalKey<State<StatefulWidget>> repaintBoundary = new GlobalKey();
     Size size = MediaQuery.of(context).size;
     String pic = "";
     switch (widget.name) {
@@ -42,7 +40,7 @@ class _ReportDetail extends State<ReportDetail> {
         pic = "assets/images/sun.png";
         break;
       case "SOIL":
-        pic = "assets/images/water.png";
+        pic = "assets/images/soil.png";
         break;
       case "TEMP-HUMID":
         pic = "assets/images/temperature.png";
@@ -84,7 +82,7 @@ class _ReportDetail extends State<ReportDetail> {
               children: <Widget>[
                 Positioned(
                   top: size.height * 0.25 * 0.1,
-                  left: size.width * 0.1,
+                  left: size.width * 0.06,
                   right: 0,
                   child: Container(
                     child: Row(
@@ -102,7 +100,7 @@ class _ReportDetail extends State<ReportDetail> {
                 ),
                 Positioned(
                   top: size.height * 0.1,
-                  left: size.width * 0.1,
+                  left: size.width * 0.06,
                   right: 0,
                   child: Container(
                     child: Row(
@@ -123,108 +121,112 @@ class _ReportDetail extends State<ReportDetail> {
                   left: size.width * 0,
                   right: 0,
                   child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Image.asset(
-                              pic,
-                              height: size.height * 0.1,
-                              width: size.width * 0.1,
-                              scale: 0.12,
-                            ),
-                            Text(
-                              "Max",
+                    child: DataTable(
+                      columnSpacing: 10,
+                      columns: [
+                        DataColumn(
+                            label: Text(
+                          "Data",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20.0),
+                        )),
+                        DataColumn(
+                            label: Image.asset(
+                          pic,
+                          height: size.height * 0.1,
+                          width: size.width * 0.1,
+                          scale: 0.5,
+                        )),
+                        if (widget.name == "TEMP-HUMID")
+                          DataColumn(
+                              label: Image.asset(
+                            "assets/images/water.png",
+                            height: size.height * 0.1,
+                            width: size.width * 0.1,
+                            scale: 0.5,
+                          )),
+                      ],
+                      rows: [
+                        DataRow(cells: [
+                          DataCell(Text(
+                            "MAX Value",
+                            style: const TextStyle(fontSize: 15.0),
+                          )),
+                          DataCell(Text(
+                            (widget.name == "TEMP-HUMID")
+                                ? double.parse(widget.max.split("-")[0])
+                                        .toStringAsFixed(1) +
+                                    widget.unt.split("-")[0]
+                                : widget.max +
+                                    ((widget.unt != 'nan') ? widget.unt : ""),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                          )),
+                          if (widget.name == "TEMP-HUMID")
+                            DataCell(Text(
+                              double.parse(widget.max.split("-")[1])
+                                      .toStringAsFixed(1) +
+                                  widget.unt.split("-")[1],
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                // fontSize: 25.0,
-                              ),
-                            ),
-                            Text(
-                              (widget.name == "TEMP-HUMID")
-                                  ? widget.max.split("-")[0] +
-                                      widget.unt.split("-")[0] +
-                                      '-' +
-                                      widget.max.split("-")[1] +
-                                      widget.unt.split("-")[1]
-                                  : widget.max +
-                                      ((widget.unt != 'nan') ? widget.unt : ""),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            )),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text(
+                            "MEAN Value",
+                            style: const TextStyle(fontSize: 15.0),
+                          )),
+                          DataCell(Text(
+                            (widget.name == "TEMP-HUMID")
+                                ? double.parse(widget.mean.split("-")[0])
+                                        .toStringAsFixed(1) +
+                                    widget.unt.split("-")[0]
+                                : double.parse(widget.mean).toStringAsFixed(1) +
+                                    ((widget.unt != 'nan') ? widget.unt : ""),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                          )),
+                          if (widget.name == "TEMP-HUMID")
+                            DataCell(Text(
+                              double.parse(widget.mean.split("-")[1])
+                                      .toStringAsFixed(1) +
+                                  widget.unt.split("-")[1],
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                // fontSize: 25.0,
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              pic,
-                              height: size.height * 0.1,
-                              width: size.width * 0.1,
-                              scale: 0.12,
-                            ),
-                            Text(
-                              "Mean: ",
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            )),
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text(
+                            "MIN Value",
+                            style: const TextStyle(fontSize: 15.0),
+                          )),
+                          DataCell(Text(
+                            (widget.name == "TEMP-HUMID")
+                                ? widget.min.split("-")[0] +
+                                    widget.unt.split("-")[0] +
+                                    '-' +
+                                    widget.min.split("-")[1] +
+                                    widget.unt.split("-")[1]
+                                : widget.min +
+                                    ((widget.unt != 'nan') ? widget.unt : ""),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20.0),
+                          )),
+                          if (widget.name == "TEMP-HUMID")
+                            DataCell(Text(
+                              double.parse(widget.min.split("-")[1])
+                                      .toStringAsFixed(1) +
+                                  widget.unt.split("-")[1],
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                // fontSize: 25.0,
-                              ),
-                            ),
-                            Text(
-                              (widget.name == "TEMP-HUMID")
-                                  ? widget.mean.split("-")[0] +
-                                      widget.unt.split("-")[0] +
-                                      '-' +
-                                      widget.mean.split("-")[1] +
-                                      widget.unt.split("-")[1]
-                                  : widget.mean +
-                                      ((widget.unt != 'nan') ? widget.unt : ""),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                // fontSize: 25.0,
-                              ),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              pic,
-                              height: size.height * 0.1,
-                              width: size.width * 0.1,
-                              scale: 0.12,
-                            ),
-                            Text(
-                              "Min",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                // fontSize: 25.0,
-                              ),
-                            ),
-                            Text(
-                              (widget.name == "TEMP-HUMID")
-                                  ? widget.min.split("-")[0] +
-                                      widget.unt.split("-")[0] +
-                                      '-' +
-                                      widget.min.split("-")[1] +
-                                      widget.unt.split("-")[1]
-                                  : widget.min +
-                                      ((widget.unt != 'nan') ? widget.unt : ""),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                // fontSize: 25.0,
-                              ),
-                            )
-                          ],
-                        ),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            )),
+                        ]),
                       ],
                     ),
                   ),
                 ),
                 Positioned(
-                  top: size.height * 0.30,
+                  top: size.height * 0.42,
                   child: Column(
                     children: [
                       Padding(
@@ -241,7 +243,7 @@ class _ReportDetail extends State<ReportDetail> {
                       new Container(
                         child: SizedBox(
                           width: size.width * 1,
-                          height: size.height * 0.3,
+                          height: size.height * 0.28,
                           child: Card(
                             margin: EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 10),

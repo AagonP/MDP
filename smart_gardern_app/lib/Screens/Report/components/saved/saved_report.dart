@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_gardern_app/Screens/Report/components/api.dart';
 import 'package:smart_gardern_app/Screens/Report/components/notifier.dart';
 import 'package:smart_gardern_app/Screens/Report/components/saved/saved_detail.dart';
+import 'package:smart_gardern_app/constant.dart';
 
 class SavedReports extends StatefulWidget {
   String name;
@@ -62,7 +63,7 @@ class _SavedReportState extends State<SavedReports> {
                   ),
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.59,
+                  width: MediaQuery.of(context).size.width * 0.58,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10.0, 8.0, 15.0, 8.0),
                     child: Column(
@@ -97,7 +98,7 @@ class _SavedReportState extends State<SavedReports> {
                       icon: Icon(Icons.delete),
                       iconSize: 30,
                       color: Colors.black,
-                      onPressed: () => deleteReport(
+                      onPressed: () => showMyAlertDialog(
                           reportNotifier, _onReportDeleted, widget.rid),
                     ),
                   ),
@@ -126,5 +127,36 @@ class _SavedReportState extends State<SavedReports> {
         )
       ],
     );
+  }
+
+  showMyAlertDialog(reportNotifier, _onReportDeleted, id) {
+    AlertDialog dialog = AlertDialog(
+      title: Text("Are you sure to delete this report?"),
+      actions: [
+        ElevatedButton(
+            child: Text("Yes"),
+            style: ElevatedButton.styleFrom(
+              primary: kPrimaryColor,
+            ),
+            onPressed: () {
+              deleteReport(reportNotifier, _onReportDeleted, widget.rid);
+              Navigator.of(context).pop();
+            }),
+        ElevatedButton(
+            child: Text("No"),
+            style: ElevatedButton.styleFrom(
+              primary: kPrimaryColor,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+      ],
+    );
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return dialog;
+        });
   }
 }
