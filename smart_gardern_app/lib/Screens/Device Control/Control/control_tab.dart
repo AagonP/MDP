@@ -18,7 +18,8 @@ class ControlTab extends StatefulWidget {
 class _ControlTabState extends State<ControlTab> {
   late bool _isStatusSwitched = false;
   late bool _isAutoSwitched = false;
-  late int _currentValue = 50;
+  late int _currentOnValue = 50;
+  late int _currentOffValue = 50;
   var mqtt1 = MqttHelper();
   var mqtt2 = MqttHelper();
   var soilMoisture = 1000.0;
@@ -73,12 +74,24 @@ class _ControlTabState extends State<ControlTab> {
         print(soilMoisture);
         print("Status $_isStatusSwitched");
         print("Auto $_isAutoSwitched");
-        if (_isAutoSwitched && !_isStatusSwitched) {
-          if (_currentValue > double.parse(data['data'].toString())) {
+        if (_isAutoSwitched == true && _isStatusSwitched == false) {
+          if (_currentOnValue > double.parse(data['data'].toString())) {
             Map testData = {
               "id": "11",
               "name": "RELAY",
               "data": "1",
+              "unit": ""
+            };
+            //Publish data to the server
+            mqtt1.publish('bk-iot-relay', jsonEncode(testData));
+          }
+        }
+        if (_isAutoSwitched == true && _isStatusSwitched == true) {
+          if (_currentOffValue < double.parse(data['data'].toString())) {
+            Map testData = {
+              "id": "11",
+              "name": "RELAY",
+              "data": "0",
               "unit": ""
             };
             //Publish data to the server
@@ -127,7 +140,7 @@ class _ControlTabState extends State<ControlTab> {
                       children: <Widget>[
                         Image.asset(
                           "assets/images/watering.png",
-                          width: 95,
+                          width: 80,
                         ),
                         SizedBox(
                           width: 30,
@@ -200,7 +213,7 @@ class _ControlTabState extends State<ControlTab> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      "Condition",
+                                      "Condition (ON)",
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontFamily: 'roboto',
@@ -218,7 +231,42 @@ class _ControlTabState extends State<ControlTab> {
                                       step: 10,
                                       onValue: (value) {
                                         setState(() {
-                                          _currentValue = value;
+                                          if (value > _currentOffValue) {
+                                            _currentOnValue = _currentOffValue;
+                                            value = _currentOffValue;
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ]),
+                              Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      "Condition (OFF)",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'roboto',
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    CustomNumberPicker(
+                                      shape: RoundedRectangleBorder(
+                                          side: BorderSide(color: Colors.white),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      initialValue: 50,
+                                      maxValue: 100,
+                                      minValue: 0,
+                                      step: 10,
+                                      onValue: (value) {
+                                        setState(() {
+                                          if (value < _currentOnValue) {
+                                            _currentOffValue = _currentOnValue;
+                                            value = _currentOnValue;
+                                          }
                                         });
                                       },
                                     ),
