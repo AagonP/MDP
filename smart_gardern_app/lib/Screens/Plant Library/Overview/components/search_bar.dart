@@ -13,7 +13,6 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   final searchController = TextEditingController();
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
@@ -26,6 +25,7 @@ class _SearchBarState extends State<SearchBar> {
       child: TextField(
         controller: searchController,
         onEditingComplete: () {
+          FocusScope.of(context).unfocus();
           Navigator.push(
             context,
             MaterialPageRoute(

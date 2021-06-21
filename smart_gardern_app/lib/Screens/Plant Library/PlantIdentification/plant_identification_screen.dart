@@ -112,6 +112,7 @@ class _PlantInfoBuilderState extends State<PlantInfoBuilder> {
 
   @override
   Widget build(BuildContext context) {
+    String bullet = "\u2022 ";
     return FutureBuilder<dynamic>(
       future: getPlantIdentification(widget.encodedImage),
       builder: (context, snapshot) {
@@ -124,45 +125,59 @@ class _PlantInfoBuilderState extends State<PlantInfoBuilder> {
                 child: Image.file(widget.image),
               ),
               Container(
+                decoration: BoxDecoration(
+                  color: kPrimaryColor.withOpacity(0.5),
+                ),
+                margin: EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding, vertical: 2.5),
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(29),
-                        color: kPrimaryColor.withOpacity(0.5),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Row(
+                          children: [
+                            Text(
+                              bullet + 'Common names: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(snapshot.data[0].toString() + '.'),
+                          ],
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding / 4, vertical: 2.5),
                       ),
-                      child:
-                          Text('Common names: ' + snapshot.data[0].toString()),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: kDefaultPadding, vertical: 2.5),
-                      margin:
-                          EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(29),
-                        color: kPrimaryColor.withOpacity(0.5),
+                      Container(
+                        child: Row(
+                          children: [
+                            Text(
+                              bullet + 'Genus: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(snapshot.data[1].toString() + '.'),
+                          ],
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding / 4, vertical: 2.5),
                       ),
-                      child: Text('Genus: ' + snapshot.data[1].toString()),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: kDefaultPadding, vertical: 2.5),
-                      margin:
-                          EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(29),
-                        color: kPrimaryColor.withOpacity(0.5),
+                      Container(
+                        child: Row(
+                          children: [
+                            Text(
+                              bullet + 'Confidence: ',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(snapshot.data[2].toString().substring(0, 6) +
+                                '.'),
+                          ],
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding / 4, vertical: 2.5),
                       ),
-                      child: Text('Confidence: ' + snapshot.data[2].toString()),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: kDefaultPadding, vertical: 2.5),
-                      margin:
-                          EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
