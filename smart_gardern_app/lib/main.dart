@@ -13,6 +13,8 @@ void main() {
     // Providers
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => PlantModel()),
+        ChangeNotifierProvider(create: (context) => SavedPlantModel()),
         ChangeNotifierProvider(create: (context) => ReportNotifier()),
       ],
       child: App(),
