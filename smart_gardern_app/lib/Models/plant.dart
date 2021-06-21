@@ -56,30 +56,3 @@ class Plant {
     };
   }
 }
-
-// These list will only be used once so no need to update it with ChangeNotifier
-
-class PlantModel extends ChangeNotifier {
-  List<Plant> _plants = [];
-  List<Plant> getList() {
-    return _plants;
-  }
-}
-
-class SavedPlantModel extends ChangeNotifier {
-  List<Plant> _plants = [];
-  List<Plant> getList() {
-    return _plants;
-  }
-
-  void add(Plant plant) {
-    _plants.add(plant);
-    _plants = _plants.toSet().toList();
-    notifyListeners();
-  }
-
-  void remove(int index) {
-    _plants.removeAt(index);
-    notifyListeners();
-  }
-}

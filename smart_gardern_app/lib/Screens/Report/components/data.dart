@@ -25,13 +25,11 @@ class _DataState extends State<Data> {
     List<Report> reports = await getdevice(reportNotifier);
     getReports(reportNotifier, reports, reportNotifier.currentsearchValue,
         reportNotifier.currentorderValue);
-    getsaved(reportNotifier);
   }
 
   @override
   Widget build(BuildContext context) {
     ReportNotifier reportNotifier = Provider.of<ReportNotifier>(context);
-
     Future<void> _refreshList() async {
       getdevice(reportNotifier);
     }
@@ -51,9 +49,7 @@ class _DataState extends State<Data> {
             shrinkWrap: true,
             controller: _scrollController,
             itemBuilder: (BuildContext context, int index) {
-              bool flag = false;
-              flag = checksavedReport(
-                  reportNotifier.currentList[index].rid, reportNotifier);
+              // print(reportNotifier.currentReport.);
               return Reports(
                   name: reportNotifier.currentList[index].name.toString(),
                   date: reportNotifier.currentList[index].date.toString(),
@@ -62,8 +58,7 @@ class _DataState extends State<Data> {
                   min: reportNotifier.currentList[index].min.toString(),
                   did: reportNotifier.currentList[index].did.toString(),
                   unt: reportNotifier.currentList[index].unt.toString(),
-                  rid: reportNotifier.currentList[index].rid,
-                  checker: flag);
+                  rid: reportNotifier.currentList[index].rid);
             },
             itemCount: reportNotifier.currentList.length,
             separatorBuilder: (BuildContext context, int index) {
