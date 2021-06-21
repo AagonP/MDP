@@ -33,7 +33,7 @@ class _SearchBarState extends State<SearchBar> {
     Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: 5),
-      width: size.width * 0.9,
+      width: size.width * 0.88,
       height: 40,
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),
@@ -41,9 +41,7 @@ class _SearchBarState extends State<SearchBar> {
       child: TextField(
         controller: searchController,
         onEditingComplete: () {
-          //Navigate to search result screen here
           changing(searchController.text);
-          // print(searchController.text);
         },
         decoration: InputDecoration(
           hintText: 'Search',
