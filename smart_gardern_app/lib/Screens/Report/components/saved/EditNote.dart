@@ -102,6 +102,11 @@ class _EditNotesViewState extends State<EditNotesView> {
 
   Widget buildSubmitButton(context) {
     void updated(String nText) {
+      var user = FirebaseAuth.instance.currentUser;
+      var uemail;
+      if (user != null) {
+        uemail = user.email;
+      }
       ReportNotifier reportNotifier =
           Provider.of<ReportNotifier>(context, listen: false);
 

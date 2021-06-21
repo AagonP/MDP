@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:mqtt_client/mqtt_client.dart';
 import 'dart:async';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -11,8 +9,8 @@ const key = 'aio_TyFS72TlW1Yh6JLDiTtQITZxX1Nz';
 const defaultFeedPath = 'pmhieu58/feeds/';
 
 class MqttHelper {
-  MqttServerClient? client;
-  Future<void> publish(String topic, String value) async {
+  static MqttServerClient? client;
+  static Future<void> publish(String topic, String value) async {
     if (client == null) {
       await connect();
     }
@@ -22,7 +20,7 @@ class MqttHelper {
         defaultFeedPath + topic, MqttQos.atLeastOnce, builder.payload!);
   }
 
-  Future<void> subcribe(String topic) async {
+  static Future<void> subcribe(String topic) async {
     if (client == null) {
       await connect();
     }
@@ -55,12 +53,12 @@ class MqttHelper {
   }
 
 // PING response received
-  void pong() {
+  static void pong() {
     print('Ping response client callback invoked');
   }
 
-  Future<MqttServerClient?> connect() async {
-    client = MqttServerClient.withPort(host, '', port);
+  static Future<MqttServerClient?> connect() async {
+    client = MqttServerClient.withPort(host, 'flutter_client', port);
     client!.logging(on: true);
     client!.onConnected = onConnected;
     client!.onDisconnected = onDisconnected;
