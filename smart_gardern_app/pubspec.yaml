@@ -32,11 +32,13 @@ dependencies:
   flutter_svg: ^0.22.0 
   # MQTT support
   mqtt_client: ^9.3.1
+  fl_chart: ^0.36.2
   intl: ^0.17.0
   flutter_number_picker: ^1.0.0
   firebase_core: ^1.1.1 
   firebase_auth: ^1.1.4
   cloud_firestore: "^2.2.0"
+  fl_chart: ^0.36.2
   provider:
   image_picker:
   http:
