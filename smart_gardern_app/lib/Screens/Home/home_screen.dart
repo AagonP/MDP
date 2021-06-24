@@ -6,9 +6,11 @@ import 'package:smart_gardern_app/Screens/Device%20Control/device_control_screen
 import 'package:smart_gardern_app/Screens/Report/report_screen.dart';
 
 import 'package:smart_gardern_app/constant.dart';
-
+import 'package:smart_gardern_app/Screens/Statistics/statistics_screen.dart';
 import '../../components/rounded_button.dart';
 import '../Plant Library/Overview/plantlib_overview_screen.dart';
+
+
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -21,30 +23,6 @@ class HomeScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Report management"),
-                // ),
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Statistics"),
-                // ),
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Control devices"),
-                // ),
-                // Container(
-                //   child: RoundedButton(
-                //       press: () {
-                //         Navigator.push(
-                //           context,
-                //           MaterialPageRoute(builder: (context) {
-                //             return Overview();
-                //           }),
-                //         );
-                //       },
-                //       text: "Plant Library"),
-                // ),
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Chatbox"),
-                // ),
                 Container(
                   width: size.width * 0.4,
                   height: size.height * 0.3,
@@ -102,30 +80,7 @@ class HomeScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Report management"),
-                // ),
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Statistics"),
-                // ),
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Control devices"),
-                // ),
-                // Container(
-                //   child: RoundedButton(
-                //       press: () {
-                //         Navigator.push(
-                //           context,
-                //           MaterialPageRoute(builder: (context) {
-                //             return Overview();
-                //           }),
-                //         );
-                //       },
-                //       text: "Plant Library"),
-                // ),
-                // Container(
-                //   child: RoundedButton(press: () {}, text: "Chatbox"),
-                // ),
+            
                 Container(
                   width: size.width * 0.35,
                   height: size.height * 0.2,
@@ -168,7 +123,14 @@ class HomeScreen extends StatelessWidget {
                     icon: const Icon(Icons.stacked_bar_chart,
                         color: Colors.white),
                     tooltip: 'Statistics',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return StatisticsScreen();
+                        }),
+                      );
+                    },
                   ),
                 ),
                 Container(
