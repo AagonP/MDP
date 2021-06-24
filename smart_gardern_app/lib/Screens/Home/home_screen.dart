@@ -6,12 +6,12 @@ import 'package:smart_gardern_app/Screens/Device%20Control/device_control_screen
 import 'package:smart_gardern_app/Screens/Report/report_screen.dart';
 
 import 'package:smart_gardern_app/constant.dart';
-<<<<<<< HEAD
 
-=======
+
+
 import 'package:smart_gardern_app/Screens/Statistics/statistics_screen.dart';
 import '../../components/rounded_button.dart';
->>>>>>> add: file assets charts
+
 import '../Plant Library/Overview/plantlib_overview_screen.dart';
 
 
