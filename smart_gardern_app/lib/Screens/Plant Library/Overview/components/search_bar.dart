@@ -26,15 +26,17 @@ class _SearchBarState extends State<SearchBar> {
       child: TextField(
         controller: searchController,
         onEditingComplete: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                FocusScope.of(context).unfocus();
-                return SearchResultScreen(searchKey: searchController.text);
-              },
-            ),
-          );
+          if (searchController.text.isNotEmpty) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  FocusScope.of(context).unfocus();
+                  return SearchResultScreen(searchKey: searchController.text);
+                },
+              ),
+            );
+          }
         },
         decoration: InputDecoration(
           hintText: 'Search',
