@@ -5,25 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:smart_gardern_app/Helpers/mqtt_helper.dart';
 import 'package:smart_gardern_app/Models/device.dart';
-// import 'package:smart_gardern_app/Screens/Statistics/Statistic/donut_chart.dart';
 import 'package:smart_gardern_app/mqtt.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 
-class TemperatureRoute extends StatefulWidget {
+class HumidityRoute extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _TemperatureRouteState();
+    return _HumidityRouteState();
   }
 }
 
-class _TemperatureRouteState extends State<TemperatureRoute> {
-  var temp = 0.0;
+class _HumidityRouteState extends State<HumidityRoute> {
   var humd = 0.0;
   var data = "0.0-0.0";
 
-  // var lst = [25.0, 27.0, 27.0, 26.0, 27.0, 25.0, 26.0];
   var lst = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   var lstTime = ["0.0", "0.0","0.0","0.0","0.0","0.0","0.0"];
  
@@ -64,22 +61,20 @@ class _TemperatureRouteState extends State<TemperatureRoute> {
     for (var i = 0; i < listTempHumid.length; i++) {
       if (listTempHumid[i].id == "7") {
         data = listTempHumid[i].data;
-        temp = double.parse(data.split("-")[0]);
         humd = double.parse(data.split("-")[1]);
         break;
       }
-      temp = 0.0;
       humd = 0.0;
     }
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('kk:mm').format(now);
-    lst.insert(0, temp);
+    lst.insert(0, humd);
     lstTime.insert(0, formattedDate);
     
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Temperature"),
+        title: Text("Humidty"),
       ),
       body: Container(
         height: size.height,
@@ -101,7 +96,7 @@ class _TemperatureRouteState extends State<TemperatureRoute> {
                     child: Column(children: [
                       Container(
                         padding: EdgeInsets.all(10.0),
-                        child: Text('Temperature Chart', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20))
+                        child: Text('Humidity Chart', style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20))
                       ),
                       AspectRatio(
                       aspectRatio: 1.7,
@@ -112,7 +107,7 @@ class _TemperatureRouteState extends State<TemperatureRoute> {
                         child: BarChart(
                           BarChartData(
                             alignment: BarChartAlignment.spaceAround,
-                            maxY: 50,
+                            maxY: 5,
                             barTouchData: BarTouchData(
                               enabled: false,
                               touchTooltipData: BarTouchTooltipData(
@@ -243,9 +238,3 @@ class _TemperatureRouteState extends State<TemperatureRoute> {
     );
   }
 }
-
-
-// class TemperatureRoute extends StatelessWidget {
-//   @override
-  
-// }
