@@ -6,10 +6,13 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 const host = 'io.adafruit.com';
 const port = 1883;
-const adafruit_user = 'pmhieu58';
-const key = 'aio_TyFS72TlW1Yh6JLDiTtQITZxX1Nz';
-const defaultFeedPath = 'pmhieu58/feeds/';
+// const adafruit_user = 'pmhieu58';
+// const key = 'aio_TyFS72TlW1Yh6JLDiTtQITZxX1Nz';
+// const defaultFeedPath = 'pmhieu58/feeds/';
 
+const adafruit_user = 'CSE_BBC';
+const key = 'aio_YqQF29yXm1YVckRjWSB8zrwF229R';
+const defaultFeedPath = 'CSE_BBC/feeds/';
 class MqttHelper {
   MqttServerClient? client;
   Future<void> publish(String topic, String value) async {
