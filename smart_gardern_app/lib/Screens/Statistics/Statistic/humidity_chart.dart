@@ -21,6 +21,7 @@ class _HumidityRouteState extends State<HumidityRoute> {
   var humd = 0.0;
   var data = "0.0-0.0";
 
+  // var lst = [51.0, 53.0, 52.0, 51.0, 57.0, 59.0, 51.0];
   var lst = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
   var lstTime = ["0.0", "0.0","0.0","0.0","0.0","0.0","0.0"];
  
@@ -107,7 +108,7 @@ class _HumidityRouteState extends State<HumidityRoute> {
                         child: BarChart(
                           BarChartData(
                             alignment: BarChartAlignment.spaceAround,
-                            maxY: 5,
+                            maxY: 75,
                             barTouchData: BarTouchData(
                               enabled: false,
                               touchTooltipData: BarTouchTooltipData(
