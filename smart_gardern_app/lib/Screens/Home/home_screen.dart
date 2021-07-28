@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smart_gardern_app/Screens/Device%20Control/device_control_screen.dart';
 
 import 'package:smart_gardern_app/Screens/Report/report_screen.dart';
-
+import 'package:smart_gardern_app/Screens/Chatbot/searchbar.dart';
 import 'package:smart_gardern_app/constant.dart';
 
 
@@ -148,7 +148,14 @@ class HomeScreen extends StatelessWidget {
                     iconSize: size.height * 0.1,
                     icon: const Icon(Icons.chat_bubble, color: Colors.white),
                     tooltip: 'Chatbox',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return SearchBarScreen();
+                        }),
+                      );
+                    },
                   ),
                 ),
               ],
